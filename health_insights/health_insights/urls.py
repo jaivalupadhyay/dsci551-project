@@ -21,6 +21,7 @@ from insights import views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
-    path('patients/<int:patient_id>/', views.patient_detail, name='patient-detail')
+    path('patients/<int:patient_id>/', views.patient_detail, name='patient-detail'),
+    path('home',views.home,name='home')
 
 ]
