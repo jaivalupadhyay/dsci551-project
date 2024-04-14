@@ -1,7 +1,17 @@
 # dsci551-project
 
 Commands to run the project:
-# Use venv if exists
+
+
+# Create virtual Env
+```bash 
+python3 -m venv venv
+```
+# Install required dependiencies
+```bash
+pip3 install -r requirements.txt
+```
+# Use venv
 
 ```bash
 source venv/bin/activate
