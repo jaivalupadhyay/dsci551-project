@@ -7,8 +7,8 @@ source venv/bin/activate
 
 # Initilaize DBs and import data
 
-python3 manage.py makemigrations
-python3 manage.py migrate
+python3 manage.py makemigrations\n
+python3 manage.py migrate\n
 python3 manage.py parser2
 
 # To run the app
