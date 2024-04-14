@@ -7,16 +7,15 @@ Commands to run the project:
 ```bash 
 python3 -m venv venv
 ```
-# Install required dependiencies
-```bash
-pip3 install -r requirements.txt
-```
 # Use venv
 
 ```bash
 source venv/bin/activate
 ```
-
+# Install required dependiencies
+```bash
+pip3 install -r requirements.txt
+```
 # Initilaize DBs and import data
 
 ```bash
