@@ -7,9 +7,12 @@ Commands to run the project:
 
 # Initilaize DBs and import data
 
-- ```bash python3 manage.py makemigrations```
-- ```bash python3 manage.py migrate```
-- ```bash python3 manage.py parser2```
+- ```bash
+   python3 manage.py makemigrations```
+- ```bash
+- python3 manage.py migrate```
+- ```bash
+- python3 manage.py parser2```
 
 # To run the app
 
