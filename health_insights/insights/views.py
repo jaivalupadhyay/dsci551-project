@@ -48,9 +48,29 @@ def analysis(request,pk):
     db1_data = Patient.objects.using('db1').filter(gender = mypatient.gender).all()
 
     db2_data = Patient.objects.using('db2').filter(gender=mypatient.gender).all()
-    height_list1 = [i.height for i in db1_data]
-    height_list2 = [i.height for i in db2_data]
-    height_list1.extend(height_list2)
 
-    params ={'id':id, 'mypatient':mypatient, 'all_data': height_list1}
-    return render(request,'insights/analysis.html', params)
+    all_heights = list(db1_data.values_list('height', flat=True)) + list(db2_data.values_list('height', flat=True))
+    all_weights = list(db1_data.values_list('weight', flat=True)) + list(db2_data.values_list('weight', flat=True))
+    all_blood_pressures = list(db1_data.values_list('blood_pressure', flat=True)) + list(db2_data.values_list('blood_pressure', flat=True))
+    all_oxygen_levels = list(db1_data.values_list('oxygen_level', flat=True)) + list(db2_data.values_list('oxygen_level', flat=True))
+    all_heart_rates = list(db1_data.values_list('heart_rate', flat=True)) + list(db2_data.values_list('heart_rate', flat=True))
+
+    def aggregate_data(attribute):
+        return list(db1_data.values_list(attribute, flat=True)) + list(db2_data.values_list(attribute, flat=True))
+
+    charts_data = [
+        {'attribute': 'height', 'label': 'Height in inches', 'values': aggregate_data('height'), 'user_value': mypatient.height},
+        {'attribute': 'weight', 'label': 'Weight in pounds', 'values': aggregate_data('weight'), 'user_value': mypatient.weight},
+        {'attribute': 'blood_pressure', 'label': 'Blood Pressure in mmHg', 'values': aggregate_data('blood_pressure'), 'user_value': mypatient.blood_pressure},
+        {'attribute': 'oxygen_level', 'label': 'Oxygen Level in %', 'values': aggregate_data('oxygen_level'), 'user_value': mypatient.oxygen_level},
+        {'attribute': 'heart_rate', 'label': 'Heart Rate in bpm', 'values': aggregate_data('heart_rate'), 'user_value': mypatient.heart_rate},
+        {'attribute': 'blood_sugar', 'label': 'Blood Sugar in mg/dL', 'values': aggregate_data('blood_sugar'), 'user_value': mypatient.blood_sugar},        {'attribute': 'sleep_hours', 'label': 'Sleep Hours per Night', 'values': aggregate_data('sleep_hours'), 'user_value': mypatient.sleep_hours},
+        {'attribute': 'stress_level', 'label': 'Stress Level', 'values': aggregate_data('stress_level'), 'user_value': mypatient.stress_level}
+    ]
+
+    context = {
+        'patient': mypatient,
+        'charts_data': charts_data
+    }
+
+    return render(request,'insights/analysis.html', context)

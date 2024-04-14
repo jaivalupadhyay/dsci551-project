@@ -1,39 +1,109 @@
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<h2>Patient id is {{ id }}</h2>
-<h2>Patient height: {{ mypatient.height }}</h2>
-<p>Name: {{ mypatient.name }}</p>
-<div style="width:30%; height:30%">
-    <canvas id="heightChart" width="50" height="50"></canvas>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Data Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Creates three columns */
+            gap: 20px; /* Adds space between charts */
+            padding: 20px; /* Padding around the grid */
+        }
+        .chart-box {
+            width: 100%; /* Full width of the column */
+            height: 300px; /* Fixed height for all charts */
+        }
+        canvas {
+            width: 100% !important; /* Important to override default styles */
+            height: 100% !important;
+        }
+    </style>
+</head>
+<body>
+<h2>Patient ID: {{ patient.id }}</h2>
+<p>Name: {{ patient.name }}</p>
+
+<div class="chart-container">
+    {% for chart in charts_data %}
+    <div class="chart-box">
+        <canvas id="{{ chart.attribute }}Chart"></canvas>
+    </div>
+
+    <script>
+        var ctx = document.getElementById('{{ chart.attribute }}Chart').getContext('2d');
+        var allValues = {{ chart.values|safe }};
+        var userValue = {{ chart.user_value }};
+        var minValue = Math.min(...allValues);
+        var maxValue = Math.max(...allValues);
+        var range = maxValue - minValue;
+        var binSize = range / 10;  // Define the size of each bin dynamically
+
+        var binCounts = {};
+        allValues.forEach(function(val) {
+            var bin = Math.round((Math.floor(val / binSize) * binSize) * 100) / 100; // Round to two decimal places
+            binCounts[bin] = (binCounts[bin] || 0) + 1;
+        });
+
+        var labels = Object.keys(binCounts).sort((a, b) => parseFloat(a) - parseFloat(b));
+        var counts = labels.map(bin => binCounts[bin]);
+
+        var backgroundColors = labels.map(label => {
+            var binStart = parseFloat(label);
+            var binEnd = binStart + binSize;
+            if (userValue >= binStart && userValue < binEnd) {
+                return 'rgba(255, 99, 132, 0.7)';  // Highlight color for user's bin
+            } else {
+                return 'rgba(75, 192, 192, 0.2)';  // Default color
+            }
+        });
+
+        var borderColors = labels.map(label => {
+            var binStart = parseFloat(label);
+            var binEnd = binStart + binSize;
+            if (userValue >= binStart && userValue < binEnd) {
+                return 'rgba(255, 99, 132, 1)';  // Highlight border color for user's bin
+            } else {
+                return 'rgba(75, 192, 192, 1)';  // Default border color
+            }
+        });
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '{{ chart.label }} Distribution',
+                    data: counts,
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            callback: function(value) {
+                                return value.toFixed(2); // Ensures labels on x-axis are rounded to two decimal places
+                            }
+                        }
+                    }]
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+    {% endfor %}
 </div>
 
-
-<script>
-var ctx = document.getElementById('heightChart').getContext('2d');
-var userHeight = {{ mypatient.height }};
-var allHeights = {{ all_data|safe }};
-var labels = Array.from(new Set(allHeights)).sort((a, b) => a - b);
-
-var counts = labels.map(label => allHeights.filter(height => height === label).length);
-
-var chart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: 'Height Distribution',
-            data: counts,
-            backgroundColor: labels.map(label => label === userHeight ? 'rgba(255, 99, 132, 0.7)' : 'rgba(75, 192, 192, 0.2)'),
-            borderColor: labels.map(label => label === userHeight ? 'rgba(255, 99, 132, 1)' : 'rgba(75, 192, 192, 1)'),
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-</script>
-
+</body>
+</html>
