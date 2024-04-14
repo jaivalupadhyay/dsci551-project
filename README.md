@@ -17,7 +17,9 @@ source venv/bin/activate
   ```
 ```bash
   python3 manage.py parser2
-
+```
 # To run the app
 
-## python3 manage.py runserver
+```bash
+python3 manage.py runserver
+```
