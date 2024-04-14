@@ -16,6 +16,10 @@ source venv/bin/activate
 ```bash
 pip3 install -r requirements.txt
 ```
+```bash
+pip install pymongo==3.12.3
+```
+
 # Initilaize DBs and import data
 
 ```bash
