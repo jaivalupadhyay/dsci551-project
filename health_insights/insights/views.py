@@ -45,7 +45,12 @@ def analysis(request,pk):
 
     mypatient = Patient.objects.using('db2' if pk % 2 == 0 else 'db1').filter(patient_id=id).get()
 
+    db1_data = Patient.objects.using('db1').filter(gender = mypatient.gender).all()
 
+    db2_data = Patient.objects.using('db2').filter(gender=mypatient.gender).all()
+    height_list1 = [i.height for i in db1_data]
+    height_list2 = [i.height for i in db2_data]
+    height_list1.extend(height_list2)
 
-    params ={'id':id, 'mypatient':mypatient}
-    return render(request,'insights/analysis.html',params)
+    params ={'id':id, 'mypatient':mypatient, 'all_data': height_list1}
+    return render(request,'insights/analysis.html', params)

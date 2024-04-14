@@ -1,3 +1,39 @@
-<h2>Patient id is {{id}}</h2>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<h2>Patient id is {{ id }}</h2>
+<h2>Patient height: {{ mypatient.height }}</h2>
+<p>Name: {{ mypatient.name }}</p>
+<div style="width:30%; height:30%">
+    <canvas id="heightChart" width="50" height="50"></canvas>
+</div>
 
-{{mypatient.name}}
+
+<script>
+var ctx = document.getElementById('heightChart').getContext('2d');
+var userHeight = {{ mypatient.height }};
+var allHeights = {{ all_data|safe }};
+var labels = Array.from(new Set(allHeights)).sort((a, b) => a - b);
+
+var counts = labels.map(label => allHeights.filter(height => height === label).length);
+
+var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Height Distribution',
+            data: counts,
+            backgroundColor: labels.map(label => label === userHeight ? 'rgba(255, 99, 132, 0.7)' : 'rgba(75, 192, 192, 0.2)'),
+            borderColor: labels.map(label => label === userHeight ? 'rgba(255, 99, 132, 1)' : 'rgba(75, 192, 192, 1)'),
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
