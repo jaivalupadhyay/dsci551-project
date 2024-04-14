@@ -14,7 +14,4 @@ def home(request):
     p1 = Patient.objects.using('db1').all()
     p2 = Patient.objects.using('db2').all()
 
-    # results =
-    # print("AAAAAAAAAAASDSASADSADASDASDASDASDASDASDSADASDASD", type(results))
-
     return render(request, 'insights/patient_detail.html', {'patients1': p1, 'patients2': p2})
