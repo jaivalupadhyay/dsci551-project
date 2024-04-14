@@ -40,6 +40,7 @@ def user_details(request, pk):
 
     return render(request, 'insights/user_details.html', params)
 
+
 def analysis(request,pk):
     id = pk
 
@@ -74,3 +75,157 @@ def analysis(request,pk):
     }
 
     return render(request,'insights/analysis.html', context)
+
+
+def bmi_calculation(height, weight):
+    height_m = height / 100.0
+    weight_kg = weight * 0.453592
+
+    bmi = weight_kg / (height_m ** 2)
+
+    return float(bmi)
+
+
+def add(request):
+    if request.method == "POST":
+        patient_id = request.POST.get('patient_id')
+        name = request.POST.get('name')
+        age = request.POST.get('age')
+        gender = request.POST.get('gender')
+        height = request.POST.get('height')
+        weight = request.POST.get('weight')
+        blood_type = request.POST.get('blood_type')
+        blood_pressure = request.POST.get('blood_pressure')
+        oxygen_level = request.POST.get('oxygen_level')
+        blood_sugar = request.POST.get('blood_sugar')
+        heart_rate = request.POST.get('heart_rate')
+        cholesterol = request.POST.get('cholestrol')
+        body_temperature = request.POST.get('body_temperature')
+        sleep_hours = request.POST.get('sleep_hours')
+        stress_level = request.POST.get('stress_level')
+
+        bmi = 100
+
+        print(f"""
+        Patient ID: {patient_id}
+        Name: {name}
+        Age: {age}
+        Gender: {gender}
+        Height: {height} cm
+        Weight: {weight} kg
+        Blood Type: {blood_type}
+        Blood Pressure: {blood_pressure}
+        Oxygen Level: {oxygen_level}%
+        blood_sugar: {blood_sugar}
+        Heart Rate: {heart_rate} bpm
+        Cholesterol: {cholesterol} mg/dL
+        Body Temperature: {body_temperature} °C
+        Sleep Hours: {sleep_hours} hours/night
+        Stress Level: {stress_level}
+        """)
+        database = 'db1' if int(patient_id) % 2 != 0 else 'db2'
+
+        new_patient = Patient(
+            patient_id=patient_id,
+            name=name,
+            age=age,
+            gender=gender,
+            height=height,
+            weight=weight,
+            blood_type=blood_type,
+            blood_pressure=blood_pressure,
+            oxygen_level=oxygen_level,
+            blood_sugar=blood_sugar,
+            heart_rate=heart_rate,
+            cholesterol=cholesterol,
+            body_temperature=body_temperature,
+            bmi=bmi,
+            sleep_hours=sleep_hours,
+            stress_level=stress_level
+        )
+        new_patient.save(using=database)
+
+        return redirect('manager_view')
+
+    params = {}
+
+    return render(request, 'insights/add.html', params)
+
+
+def delete(request):
+    if request.method == "POST":
+        patient_id = request.POST.get('patient_id')
+
+        if int(patient_id) % 2 == 0:
+            patient = Patient.objects.using('db2').filter(patient_id=patient_id).delete()
+        else:
+            patient = Patient.objects.using('db1').filter(patient_id=patient_id).delete()
+
+        # for patient in patients:
+        #     patient.delete()
+
+        return redirect('manager_view')
+    return render(request, 'insights/delete.html')
+
+
+def update(request):
+    if request.method == "POST":
+        patient_id = request.POST.get('patient_id')
+        patient = Patient.objects.using('db2' if int(patient_id) % 2 == 0 else "db1").filter(patient_id=patient_id).get()
+        Patient.objects.using('db2' if int(patient_id) % 2 == 0 else "db1").filter(patient_id=patient_id).delete()
+
+        name = request.POST.get('name')
+        age = request.POST.get('age')
+        gender = request.POST.get('gender')
+        height = request.POST.get('height')
+        weight = request.POST.get('weight')
+        blood_type = request.POST.get('blood_type')
+        blood_pressure = request.POST.get('blood_pressure')
+        oxygen_level = request.POST.get('oxygen_level')
+        blood_sugar = request.POST.get('blood_sugar')
+        heart_rate = request.POST.get('heart_rate')
+        cholesterol = request.POST.get('cholesterol')
+        body_temperature = request.POST.get('body_temperature')
+        sleep_hours = request.POST.get('sleep_hours')
+        stress_level = request.POST.get('stress_level')
+
+        # Updating fields if provided
+        if name:
+            patient.name = name
+        if age:
+            patient.age = age
+        if gender:
+            patient.gender = gender
+        if height:
+            patient.height = height
+        if weight:
+            patient.weight = weight
+        if blood_type:
+            patient.blood_type = blood_type
+        if blood_pressure:
+            patient.blood_pressure = blood_pressure
+        if oxygen_level:
+            patient.oxygen_level = oxygen_level
+        if blood_sugar:
+            patient.blood_sugar = blood_sugar
+        if heart_rate:
+            patient.heart_rate = heart_rate
+        if cholesterol:
+            patient.cholesterol = cholesterol
+        if body_temperature:
+            patient.body_temperature = body_temperature
+        if sleep_hours:
+            patient.sleep_hours = sleep_hours
+        if stress_level:
+            patient.stress_level = stress_level
+
+
+        patient.save()
+
+        return redirect('manager_view')
+
+    params = {}
+    return render(request, 'insights/update.html', params)
+
+    params = {}
+    return render(request, 'insights/delete.html', params)

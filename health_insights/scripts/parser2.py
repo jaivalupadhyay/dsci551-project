@@ -17,7 +17,7 @@ def run():
     with open("dataset.json", 'r') as file:
         data = json.load(file)['Sheet1'] 
 
-        for item in data[:30000]:
+        for item in data[:30]:
             patient_id = item['Patient ID']
             
             database = 'db2' if int(patient_id) % 2 == 0 else 'db1'
