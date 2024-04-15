@@ -14,10 +14,8 @@ source venv/bin/activate
 ```
 # Install required dependencies (Make sure mongodb is already installed)
 ```bash
-pip3 install django django-extensions djongo
+pip3 install django django-extensions djongo pytz
 pip install pymongo==3.12.3
-pip install pytz
-
 ```
 
 # Initilaize DBs and import data
