@@ -87,8 +87,41 @@ def manager_view(request):
     db1_count = Patient.objects.using('db1').count()
     db2_count = Patient.objects.using('db2').count()
 
-    chart = {}
-    # graph filters
+    # # graph filters
+    # x_list = []
+    # y_list=[]
+    # x_axis ='null'
+    # y_axis='null'
+    #
+    # if request.method == 'POST':
+    #     x_axis = request.POST.get('xaxis')
+    #     y_axis = request.POST.get('yaxis')
+    #
+    #
+    #     print('Received x-axis value:', x_axis)
+    #     print('Received y-axis value:', y_axis)
+    #
+    #     # Querying the Patient objects using a specified database
+    #     patients1 = Patient.objects.using('db1').all()
+    #
+    #     # Assuming you want to print the value of attributes in patients that are named similarly to x_axis and y_axis dynamically
+    #     for patient in patients1:
+    #         # Safely getting attribute values based on string names with default fallback
+    #         patient_x_value = getattr(patient, x_axis, "Attribute not found")
+    #         x_list.append(patient_x_value)
+    #         patient_y_value = getattr(patient, y_axis, "Attribute not found")
+    #         y_list.append(patient_y_value)
+    #
+    #     patients2 = Patient.objects.using('db2').all()
+    #
+    #     for patient in patients2:
+    #         # Safely getting attribute values based on string names with default fallback
+    #         patient_x_value = getattr(patient, x_axis, "Attribute not found")
+    #         x_list.append(patient_x_value)
+    #         patient_y_value = getattr(patient, y_axis, "Attribute not found")
+    #         y_list.append(patient_y_value)
+
+
 
     params={'patients1': p1,
             'patients2': p2,
@@ -103,22 +136,52 @@ def manager_view(request):
             'obese_class3_count':obese_class3_count,
             'db1_count': db1_count,
             'db2_count': db2_count
-
             }
+
+    return render(request, 'insights/manager_view.html', params)
+
+
+def manager_graphs(request):
+
+    x_list = []
+    y_list=[]
+    x_axis ='null'
+    y_axis='null'
 
     if request.method == 'POST':
         x_axis = request.POST.get('xaxis')
         y_axis = request.POST.get('yaxis')
 
-        print('xaxisssssssssssssssssssssssssssssssssssssssss',x_axis)
-        print('yyyyyyyyyyyyyyyyaxisssssssssssssssssssssssssssssssssssssssss', y_axis)
 
+        print('Received x-axis value:', x_axis)
+        print('Received y-axis value:', y_axis)
 
-    
-    return render(request, 'insights/manager_view.html', params)
+        # Querying the Patient objects using a specified database
+        patients1 = Patient.objects.using('db1').all()
 
+        # Assuming you want to print the value of attributes in patients that are named similarly to x_axis and y_axis dynamically
+        for patient in patients1:
+            # Safely getting attribute values based on string names with default fallback
+            patient_x_value = getattr(patient, x_axis, "Attribute not found")
+            x_list.append(patient_x_value)
+            patient_y_value = getattr(patient, y_axis, "Attribute not found")
+            y_list.append(patient_y_value)
 
+        patients2 = Patient.objects.using('db2').all()
 
+        for patient in patients2:
+            # Safely getting attribute values based on string names with default fallback
+            patient_x_value = getattr(patient, x_axis, "Attribute not found")
+            x_list.append(patient_x_value)
+            patient_y_value = getattr(patient, y_axis, "Attribute not found")
+            y_list.append(patient_y_value)
+
+    params={'xlabel':x_axis,
+            'ylabel':y_axis,
+            'x_list':x_list,
+            'y_list':y_list
+            }
+    return render(request,'insights/manager_graphs.html',params)
 
 def user_view(request):
     p1 = Patient.objects.using('db1').all()

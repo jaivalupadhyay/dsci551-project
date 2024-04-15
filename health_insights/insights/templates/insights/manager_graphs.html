@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Graphs</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Manager Graphs</h1>
+    <p>X-axis label: {{ xlabel }}</p>
+    <p>Y-axis label: {{ ylabel }}</p>
+
+    <div style="width:800px; height:400px;"> <!-- Increased width for better label visibility -->
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var xValues = {{ x_list|safe }};
+        var yValues = {{ y_list|safe }};
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: xValues,
+                datasets: [{
+                    label: '{{ ylabel }}', // This labels the dataset
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Adjusted for slight transparency
+                    borderColor: 'rgb(75, 192, 192)',
+                    data: yValues,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,  // Ensures the canvas size is responsive
+                maintainAspectRatio: false,  // Helps maintain aspect ratio
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: '{{ ylabel }}'
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: '{{ xlabel|safe }}'  // Ensure this is rendering correctly
+                        }
+                    }]
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                    },
+                    tooltip: {
+                        enabled: true,
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

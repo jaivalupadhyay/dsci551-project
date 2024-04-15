@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
           'Obese Class III'
         ],
         datasets: [{
-          data: [/* Replace with your data */ 5, 10, 8, 3, 2, 1],
+          data: [/* Replace with your data */ {{underweight_count}}, {{idealweight_count}}, {{overweight_count}}, {{obese_class1_count}}, {{obese_class2_count}}, {{obese_class3_count}}],
           backgroundColor: [
             '#f8c291',
             '#6a89cc',
@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- Flex container -->
 <div class="d-flex justify-content-start p-4">
 
-<form method="post">
+<form method="post" action="{% url 'manager_graphs' %}">
     {% csrf_token %}
     <div class="form-group">
       <label for="x-axis-select">X - axis</label>
@@ -332,19 +332,13 @@ document.addEventListener('DOMContentLoaded', function () {
       </select>
   </div>
 
-  <button type="submit" class="btn btn-primary">Create graph</button>
+  <button type="submit"  class="btn btn-primary">Create graph</button>
 </form>
-
-
-
-
-  <!-- ... Add more dropdowns here if needed ... -->
 
 </div>
 
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>

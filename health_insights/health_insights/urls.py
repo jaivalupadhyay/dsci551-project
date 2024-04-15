@@ -32,6 +32,7 @@ urlpatterns = [
     path('add/',views.add,name = "add"),
     path('delete/',views.delete,name = "delete"),
     path('update/',views.update,name = "update"),
+    path('manager_graphs/',views.manager_graphs,name="manager_graphs")
 
 
 
