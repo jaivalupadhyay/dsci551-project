@@ -21,7 +21,9 @@ pip install pymongo==3.12.3
 ```
 
 # Initilaize DBs and import data
-
+```bash
+   cd health_insights
+```
 ```bash
    python3 manage.py makemigrations
   ```
