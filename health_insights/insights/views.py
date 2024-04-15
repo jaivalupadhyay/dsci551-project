@@ -315,6 +315,3 @@ def update(request):
 
     params = {}
     return render(request, 'insights/update.html', params)
-
-    params = {}
-    return render(request, 'insights/delete.html', params)
