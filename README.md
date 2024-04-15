@@ -1,5 +1,6 @@
 # dsci551-project
-Ensure the python version is 3.8/3.9
+Ensure the python version is 3.8/3.9.
+
 Commands to run the project:
 
 
