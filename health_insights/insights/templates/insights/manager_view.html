@@ -305,20 +305,22 @@ document.addEventListener('DOMContentLoaded', function () {
       X - axis
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <li><button class="dropdown-item" name="xaxis" value="age" type="submit">Age</button></li>
-      <li><button class="dropdown-item" name="xaxis" value="gender" type="submit">Gender</button></li>
-      <li><button class="dropdown-item" name="xaxis" value="height" type="submit">Height</button></li>
-        <li><button class="dropdown-item" name="xaxis" value="weight" type="submit">Weight</button></li>
-        <li><button class="dropdown-item" name="xaxis" value="blood_type" type="submit">Blood Type</button></li>
-        <li><button class="dropdown-item" name="xaxis" value="blood_pressure" type="submit">Blood Pressure</button></li>
-        <li><button class="dropdown-item" name="xaxis" value="oxygen_level" type="submit">Oxygen Value</button></li>
-        <li><button class="dropdown-item" name="xaxis" value="heart_rate" type="submit">heart Rate</button></li>
-        <li><button class="dropdown-item" name="xaxis" value="blood_sugar" type="submit">Blood Sugar</button></li>
-        <li><button class="dropdown-item" name="xaxis" value="cholesterol" type="submit">Cholesterol</button></li>
-        <li><button class="dropdown-item" name="xaxis" value="body_temperature" type="submit">Body Temperature</button></li>
-        <li><button class="dropdown-item" name="xaxis" value="bmi" type="submit">BMI</button></li>
-        <li><button class="dropdown-item" name="xaxis" value="sleep_hours" type="submit">Sleep Hours</button></li>
-        <li><button class="dropdown-item" name="xaxis" value="stress_level" type="submit">Stress Level</button></li>
+          <select name="temp" class="form-select">
+      <li><option class="dropdown-item" name="xaxis" value="age" >Age</option></li>
+      <li><option class="dropdown-item" name="xaxis" value="gender" >Gender</option></li>
+      <li><option class="dropdown-item" name="xaxis" value="height" >Height</option></li>
+        <li><option class="dropdown-item" name="xaxis" value="weight" >Weight</option></li>
+        <li><option class="dropdown-item" name="xaxis" value="blood_type" >Blood Type</option></li>
+        <li><option class="dropdown-item" name="xaxis" value="blood_pressure" >Blood Pressure</option></li>
+        <li><option class="dropdown-item" name="xaxis" value="oxygen_level" >Oxygen Value</option></li>
+        <li><option class="dropdown-item" name="xaxis" value="heart_rate" >heart Rate</option></li>
+        <li><option class="dropdown-item" name="xaxis" value="blood_sugar" >Blood Sugar</option></li>
+        <li><option class="dropdown-item" name="xaxis" value="cholesterol" >Cholesterol</option></li>
+        <li><option class="dropdown-item" name="xaxis" value="body_temperature" >Body Temperature</option></li>
+        <li><option class="dropdown-item" name="xaxis" value="bmi" >BMI</option></li>
+        <li><option class="dropdown-item" name="xaxis" value="sleep_hours">Sleep Hours</option></li>
+        <li><option class="dropdown-item" name="xaxis" value="stress_level" >Stress Level</option></li>
+                </select>
     </ul>
   </div>
 <br>
@@ -327,23 +329,26 @@ document.addEventListener('DOMContentLoaded', function () {
       Y - axis
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <li><button class="dropdown-item" name="yaxis" value="age" type="submit">Age</button></li>
-      <li><button class="dropdown-item" name="yaxis" value="gender" type="submit">Gender</button></li>
-      <li><button class="dropdown-item" name="yaxis" value="height" type="submit">Height</button></li>
-        <li><button class="dropdown-item" name="yaxis" value="weight" type="submit">Weight</button></li>
-        <li><button class="dropdown-item" name="yaxis" value="blood_type" type="submit">Blood Type</button></li>
-        <li><button class="dropdown-item" name="yaxis" value="blood_pressure" type="submit">Blood Pressure</button></li>
-        <li><button class="dropdown-item" name="yaxis" value="oxygen_level" type="submit">Oxygen Value</button></li>
-        <li><button class="dropdown-item" name="yaxis" value="heart_rate" type="submit">heart Rate</button></li>
-        <li><button class="dropdown-item" name="yaxis" value="blood_sugar" type="submit">Blood Sugar</button></li>
-        <li><button class="dropdown-item" name="yaxis" value="cholesterol" type="submit">Cholesterol</button></li>
-        <li><button class="dropdown-item" name="yaxis" value="body_temperature" type="submit">Body Temperature</button></li>
-        <li><button class="dropdown-item" name="yaxis" value="bmi" type="submit">BMI</button></li>
-        <li><button class="dropdown-item" name="yaxis" value="sleep_hours" type="submit">Sleep Hours</button></li>
-        <li><button class="dropdown-item" name="yaxis" value="stress_level" type="submit">Stress Level</button></li>
+          <select name="temp" class="form-select">
+      <li><option class="dropdown-item" name="yaxis" value="age" >Age</option></li>
+      <li><option class="dropdown-item" name="yaxis" value="gender" >Gender</option></li>
+      <li><option class="dropdown-item" name="yaxis" value="height" >Height</option></li>
+        <li><option class="dropdown-item" name="yaxis" value="weight" >Weight</option></li>
+        <li><option class="dropdown-item" name="yaxis" value="blood_type" >Blood Type</option></li>
+        <li><option class="dropdown-item" name="yaxis" value="blood_pressure" >Blood Pressure</option></li>
+        <li><option class="dropdown-item" name="yaxis" value="oxygen_level" >Oxygen Value</option></li>
+        <li><option class="dropdown-item" name="yaxis" value="heart_rate" >heart Rate</option></li>
+        <li><option class="dropdown-item" name="yaxis" value="blood_sugar" >Blood Sugar</option></li>
+        <li><option class="dropdown-item" name="yaxis" value="cholesterol" >Cholesterol</option></li>
+        <li><option class="dropdown-item" name="yaxis" value="body_temperature" >Body Temperature</option></li>
+        <li><option class="dropdown-item" name="yaxis" value="bmi" >BMI</option></li>
+        <li><option class="dropdown-item" name="yaxis" value="sleep_hours">Sleep Hours</option></li>
+        <li><option class="dropdown-item" name="yaxis" value="stress_level" >Stress Level</option></li>
+                </select>
     </ul>
   </div>
-
+    <br><br>
+  <button type="submit" class="btn btn-primary">Create graph</button>
 
 </form>
 
