@@ -83,7 +83,9 @@ def manager_view(request):
     # graph filters
     if request.method == "POST":
         xaxis = request.POST.get('xaxis')
+        yaxis = request.POST.get('yaxis')
         print('toiewofiobeoivbosdibcsidbsubd;sbc;obce;fsuob;ccb; dof dfi',xaxis)
+        print('tababababaabababababaababababababababa', yaxis)
 
 
 
