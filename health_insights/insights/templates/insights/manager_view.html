@@ -336,37 +336,6 @@ document.addEventListener('DOMContentLoaded', function () {
 </form>
 
 
-{% if chart %}
-<div class="chart-container" style="position: relative; height:40vh; width:80vw">
-    <canvas id="myChart"></canvas>
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {{ chart|safe }});
-    });
-</script>
-{% endif %}
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const xAxisSelect = document.getElementById('x-axis-select');
-        const yAxisSelect = document.getElementById('y-axis-select');
-        const submitButton = document.getElementById('submit-button');
-
-        function validateSelection() {
-            submitButton.disabled = !xAxisSelect.value || !yAxisSelect.value;
-        }
-
-        xAxisSelect.addEventListener('change', validateSelection);
-        yAxisSelect.addEventListener('change', validateSelection);
-    });
-</script>
-
-</body>
-</html>
-
 
 
   <!-- ... Add more dropdowns here if needed ... -->

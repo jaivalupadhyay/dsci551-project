@@ -59,155 +59,62 @@ def bmi_analysis(Patient):
     return underweight_count,idealweight_count,overweight_count,obese_class1_count,obese_class2_count,obese_class3_count
 
 
-# def manager_view(request):
-
-#     def fetch_data_for_axes(x_axis, y_axis):
-
-#         db1_patients = Patient.objects.using('db1').all()
-#         db2_patients = Patient.objects.using('db2').all()
-
-#         # Using list comprehensions to extract data based on the x_axis and y_axis attributes
-#         db1_data = [(getattr(patient, x_axis), getattr(patient, y_axis)) for patient in db1_patients if getattr(patient, x_axis) is not None and getattr(patient, y_axis) is not None]
-#         db2_data = [(getattr(patient, x_axis), getattr(patient, y_axis)) for patient in db2_patients if getattr(patient, x_axis) is not None and getattr(patient, y_axis) is not None]
-
-#         # Combining data from both databases
-#         combined_data = db1_data + db2_data
-
-#         # Sorting data by the x-axis attribute to maintain logical order on the graph
-#         combined_data.sort(key=lambda x: x[0])
-
-#         labels, values = zip(*combined_data) if combined_data else ([], [])
-
-#         print(labels, values)
-#         return {
-#             'labels': labels,
-#             'values': values
-#         }
-        
-
-#     p1 = Patient.objects.using('db1').all()
-#     p2 = Patient.objects.using('db2').all()
-
-
-#     # Getting the count of all Patient objects in the queryset
-#     p1_count = p1.count()
-#     p2_count = p2.count()
-#     count = p1_count + p2_count
-
-
-#     # getting count of males
-#     male_count_db1 = Patient.objects.using('db1').filter(gender='Male').count()
-#     male_count_db2 = Patient.objects.using('db2').filter(gender='Male').count()
-#     male_count = male_count_db1 + male_count_db2
-
-#     #getting count of females
-#     Female_count_db1 = Patient.objects.using('db1').filter(gender='Female').count()
-#     Female_count_db2 = Patient.objects.using('db2').filter(gender='Female').count()
-#     Female_count = Female_count_db1 + Female_count_db2
-
-#     #bmi based analysis
-#     underweight_count,idealweight_count,overweight_count,obese_class1_count,obese_class2_count,obese_class3_count = bmi_analysis(Patient)
-
-#     db1_count = Patient.objects.using('db1').count()
-#     db2_count = Patient.objects.using('db2').count()
-
-#     chart = {}
-#     # graph filters
-
-#     params={'patients1': p1,
-#             'patients2': p2,
-#             'count':count,
-#             'male_count':male_count,
-#             'female_count': Female_count,
-#             'underweight_count':underweight_count,
-#             'idealweight_count':idealweight_count,
-#             'overweight_count':overweight_count,
-#             'obese_class1_count':obese_class1_count,
-#             'obese_class2_count':obese_class2_count,
-#             'obese_class3_count':obese_class3_count,
-#             'db1_count': db1_count,
-#             'db2_count': db2_count
-
-#             }
-
-#     if request.method == 'POST':
-#         x_axis = request.POST.get('xaxis')
-#         y_axis = request.POST.get('yaxis')
-
-    
-#     return render(request, 'insights/manager_view.html', params)
-from django.shortcuts import render
-from .models import Patient
-
 def manager_view(request):
-    def fetch_data_for_axes(x_axis, y_axis):
-        # Fetch patients from both databases
-        db1_patients = Patient.objects.using('db1').all()
-        db2_patients = Patient.objects.using('db2').all()
 
-        # Extract data based on x_axis and y_axis, filtering out None values
-        db1_data = [(getattr(patient, x_axis), getattr(patient, y_axis)) for patient in db1_patients 
-                    if getattr(patient, x_axis) is not None and getattr(patient, y_axis) is not None]
-        db2_data = [(getattr(patient, x_axis), getattr(patient, y_axis)) for patient in db2_patients 
-                    if getattr(patient, x_axis) is not None and getattr(patient, y_axis) is not None]
+    p1 = Patient.objects.using('db1').all()
+    p2 = Patient.objects.using('db2').all()
 
-        # Combine and sort the data
-        combined_data = db1_data + db2_data
-        combined_data.sort(key=lambda x: x[0])
 
-        labels, values = zip(*combined_data) if combined_data else ([], [])
-        return {
-            'labels': labels,
-            'values': values
-        }
+    # Getting the count of all Patient objects in the queryset
+    p1_count = p1.count()
+    p2_count = p2.count()
+    count = p1_count + p2_count
 
-    # Initial default values for the context
-    chart = None
+
+    # getting count of males
+    male_count_db1 = Patient.objects.using('db1').filter(gender='Male').count()
+    male_count_db2 = Patient.objects.using('db2').filter(gender='Male').count()
+    male_count = male_count_db1 + male_count_db2
+
+    #getting count of females
+    Female_count_db1 = Patient.objects.using('db1').filter(gender='Female').count()
+    Female_count_db2 = Patient.objects.using('db2').filter(gender='Female').count()
+    Female_count = Female_count_db1 + Female_count_db2
+
+    #bmi based analysis
     underweight_count,idealweight_count,overweight_count,obese_class1_count,obese_class2_count,obese_class3_count = bmi_analysis(Patient)
-    params = {
-        'patients1': Patient.objects.using('db1').all(),
-        'patients2': Patient.objects.using('db2').all(),
-        'db1_count': Patient.objects.using('db1').count(),
-        'db2_count': Patient.objects.using('db2').count(),
-        'count': Patient.objects.using('db1').count() + Patient.objects.using('db2').count(),
-        'male_count': Patient.objects.using('db1').filter(gender='Male').count() + Patient.objects.using('db2').filter(gender='Male').count(),
-        'female_count': Patient.objects.using('db1').filter(gender='Female').count() + Patient.objects.using('db2').filter(gender='Female').count(),
-        'underweight_count': underweight_count, 
-        'idealweight_count': idealweight_count,
-        'overweight_count': overweight_count,
-        'obese_class1_count': obese_class1_count,
-        'obese_class2_count': obese_class2_count,
-        'obese_class3_count': obese_class3_count,
-    }
+
+    db1_count = Patient.objects.using('db1').count()
+    db2_count = Patient.objects.using('db2').count()
+
+    chart = {}
+    # graph filters
+
+    params={'patients1': p1,
+            'patients2': p2,
+            'count':count,
+            'male_count':male_count,
+            'female_count': Female_count,
+            'underweight_count':underweight_count,
+            'idealweight_count':idealweight_count,
+            'overweight_count':overweight_count,
+            'obese_class1_count':obese_class1_count,
+            'obese_class2_count':obese_class2_count,
+            'obese_class3_count':obese_class3_count,
+            'db1_count': db1_count,
+            'db2_count': db2_count
+
+            }
 
     if request.method == 'POST':
         x_axis = request.POST.get('xaxis')
         y_axis = request.POST.get('yaxis')
 
-        if x_axis and y_axis:
-            data = fetch_data_for_axes(x_axis, y_axis)
-            chart = {
-                'type': 'line',
-                'data': {
-                    'labels': data['labels'],
-                    'datasets': [{
-                        'label': f'{y_axis} by {x_axis}',
-                        'data': data['values'],
-                        'fill': False,
-                        'borderColor': 'rgb(75, 192, 192)',
-                        'tension': 0.1
-                    }]
-                },
-                'options': {
-                    'scales': {
-                        'y': {
-                            'beginAtZero': True
-                        }
-                    }
-                }
-            }
-            params['chart'] = chart
+        print('xaxisssssssssssssssssssssssssssssssssssssssss',x_axis)
+        print('yyyyyyyyyyyyyyyyaxisssssssssssssssssssssssssssssssssssssssss', y_axis)
 
+
+    
     return render(request, 'insights/manager_view.html', params)
 
 
