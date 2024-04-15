@@ -36,8 +36,8 @@ def run():
                 'oxygen_level': item.get('Oxygen level', None),
                 'heart_rate': item.get('Heart Rate', 0),
                 'blood_sugar': item.get('Blood Sugar', None),
-                'cholesterol': item.get('Cholesterol', 0),  # Corrected field name spelling
-                'body_temperature': item.get('Body Temperature', None),  # Corrected field name spelling
+                'cholesterol': item.get('Cholestrol', 0),  # Corrected field name spelling
+                'body_temperature': item.get('Body Temeperature', None),  # Corrected field name spelling
                 'sleep_hours': item.get('Sleep Hours', None),
                 'bmi': item.get('BMI', None),
                 'stress_level': item.get('Stress Level', None)
