@@ -20,7 +20,10 @@ def home(request):
 
     return render(request, 'insights/home.html', {'patients1': p1, 'patients2': p2})
 
+
+
 def bmi_analysis(Patient):
+
     # underweight
     underweight_count_db1 = Patient.objects.using('db1').filter(bmi__lt=18.5).count()
     underweight_count_db2 = Patient.objects.using('db2').filter(bmi__lt=18.5).count()

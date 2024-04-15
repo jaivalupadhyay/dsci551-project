@@ -31,7 +31,7 @@ urlpatterns = [
     path('analysis/<int:pk>',views.analysis,name = "analysis"),
     path('add/',views.add,name = "add"),
     path('delete/',views.delete,name = "delete"),
-    path('update/',views.update,name = "update")
+    path('update/',views.update,name = "update"),
 
 
 
