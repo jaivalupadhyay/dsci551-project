@@ -12,9 +12,9 @@ python3 -m venv venv
 ```bash
 source venv/bin/activate
 ```
-# Install required dependencies
+# Install required dependencies (Make sure mongodb is already installed)
 ```bash
-pip3 install -r requirements.txt
+pip3 pip install django django-extensions djongo
 ```
 ```bash
 pip install pymongo==3.12.3
@@ -22,16 +22,16 @@ pip install pymongo==3.12.3
 
 # Initilaize DBs and import data
 ```bash
-   cd health_insights
+cd health_insights
 ```
 ```bash
-   python3 manage.py makemigrations
+python3 manage.py makemigrations
   ```
 ```bash
-  python3 manage.py migrate
+python3 manage.py migrate
   ```
 ```bash
-  python3 manage.py parser2
+python3 manage.py parser2
 ```
 # To run the app
 
