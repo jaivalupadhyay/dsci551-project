@@ -16,11 +16,94 @@ def home(request):
 
     return render(request, 'insights/home.html', {'patients1': p1, 'patients2': p2})
 
+def bmi_analysis(Patient):
+    # underweight
+    underweight_count_db1 = Patient.objects.using('db1').filter(bmi__lt=18.5).count()
+    underweight_count_db2 = Patient.objects.using('db2').filter(bmi__lt=18.5).count()
+    underweight_count = underweight_count_db1 + underweight_count_db2
+
+    # ideal weight (Normal range)
+    idealweight_count_db1 = Patient.objects.using('db1').filter(bmi__gte=18.5, bmi__lt=25).count()
+    idealweight_count_db2 = Patient.objects.using('db2').filter(bmi__gte=18.5, bmi__lt=25).count()
+    idealweight_count = idealweight_count_db1 + idealweight_count_db2
+
+    # overweight
+    overweight_count_db1 = Patient.objects.using('db1').filter(bmi__gte=25, bmi__lt=30).count()
+    overweight_count_db2 = Patient.objects.using('db2').filter(bmi__gte=25, bmi__lt=30).count()
+    overweight_count = overweight_count_db1 + overweight_count_db2
+
+    # Obese class I
+    obese_class1_count_db1 = Patient.objects.using('db1').filter(bmi__gte=30, bmi__lt=35).count()
+    obese_class1_count_db2 = Patient.objects.using('db2').filter(bmi__gte=30, bmi__lt=35).count()
+    obese_class1_count = obese_class1_count_db1 + obese_class1_count_db2
+
+    # Obese class II
+    obese_class2_count_db1 = Patient.objects.using('db1').filter(bmi__gte=35, bmi__lt=40).count()
+    obese_class2_count_db2 = Patient.objects.using('db2').filter(bmi__gte=35, bmi__lt=40).count()
+    obese_class2_count = obese_class2_count_db1 + obese_class2_count_db2
+
+    # Obese class III
+    obese_class3_count_db1 = Patient.objects.using('db1').filter(bmi__gte=40).count()
+    obese_class3_count_db2 = Patient.objects.using('db2').filter(bmi__gte=40).count()
+    obese_class3_count = obese_class3_count_db1 + obese_class3_count_db2
+
+
+
+    return underweight_count,idealweight_count,overweight_count,obese_class1_count,obese_class2_count,obese_class3_count
+
 
 def manager_view(request):
     p1 = Patient.objects.using('db1').all()
     p2 = Patient.objects.using('db2').all()
-    return render(request, 'insights/manager_view.html', {'patients1': p1, 'patients2': p2})
+
+
+    # Getting the count of all Patient objects in the queryset
+    p1_count = p1.count()
+    p2_count = p2.count()
+    count = p1_count + p2_count
+
+
+    # getting count of males
+    male_count_db1 = Patient.objects.using('db1').filter(gender='Male').count()
+    male_count_db2 = Patient.objects.using('db2').filter(gender='Male').count()
+    male_count = male_count_db1 + male_count_db2
+
+    #getting count of females
+    Female_count_db1 = Patient.objects.using('db1').filter(gender='Female').count()
+    Female_count_db2 = Patient.objects.using('db2').filter(gender='Female').count()
+    Female_count = Female_count_db1 + Female_count_db2
+
+    #bmi based analysis
+    underweight_count,idealweight_count,overweight_count,obese_class1_count,obese_class2_count,obese_class3_count = bmi_analysis(Patient)
+
+    db1_count = Patient.objects.using('db1').count()
+    db2_count = Patient.objects.using('db2').count()
+
+
+    # graph filters
+    if request.method == "POST":
+        xaxis = request.POST.get('xaxis')
+        print('toiewofiobeoivbosdibcsidbsubd;sbc;obce;fsuob;ccb; dof dfi',xaxis)
+
+
+
+    params={'patients1': p1,
+            'patients2': p2,
+            'count':count,
+            'male_count':male_count,
+            'female_count': Female_count,
+            'underweight_count':underweight_count,
+            'idealweight_count':idealweight_count,
+            'overweight_count':overweight_count,
+            'obese_class1_count':obese_class1_count,
+            'obese_class2_count':obese_class2_count,
+            'obese_class3_count':obese_class3_count,
+            'db1_count': db1_count,
+            'db2_count': db2_count
+
+            }
+
+    return render(request, 'insights/manager_view.html', params)
 
 
 def user_view(request):
@@ -90,21 +173,27 @@ def add(request):
     if request.method == "POST":
         patient_id = request.POST.get('patient_id')
         name = request.POST.get('name')
-        age = request.POST.get('age')
+        age = int(request.POST.get('age'))
         gender = request.POST.get('gender')
-        height = request.POST.get('height')
-        weight = request.POST.get('weight')
+        height = float(request.POST.get('height'))
+        weight = float(request.POST.get('weight'))
         blood_type = request.POST.get('blood_type')
-        blood_pressure = request.POST.get('blood_pressure')
-        oxygen_level = request.POST.get('oxygen_level')
-        blood_sugar = request.POST.get('blood_sugar')
-        heart_rate = request.POST.get('heart_rate')
-        cholesterol = request.POST.get('cholestrol')
-        body_temperature = request.POST.get('body_temperature')
-        sleep_hours = request.POST.get('sleep_hours')
-        stress_level = request.POST.get('stress_level')
+        blood_pressure = float(request.POST.get('blood_pressure'))
+        oxygen_level = float(request.POST.get('oxygen_level'))
+        blood_sugar = float(request.POST.get('blood_sugar'))
+        heart_rate = float(request.POST.get('heart_rate'))
+        cholesterol = float(request.POST.get('cholestrol'))
+        body_temperature = float(request.POST.get('body_temperature'))
+        sleep_hours = float(request.POST.get('sleep_hours'))
+        stress_level = float(request.POST.get('stress_level'))
 
-        bmi = 100
+        bmi = bmi_calculation(height, weight)
+
+        if gender == "male":
+            gender = 'Male'
+
+        if gender == 'female':
+            gender = 'Female'
 
         print(f"""
         Patient ID: {patient_id}
