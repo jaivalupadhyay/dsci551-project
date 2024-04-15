@@ -1,9 +1,10 @@
 # dsci551-project
+Ensure the python version is 3.8/3.9.
 
 Commands to run the project:
 
 
-# Create virtual Env
+# Create virtual Environment
 ```bash 
 python3 -m venv venv
 ```
@@ -12,24 +13,24 @@ python3 -m venv venv
 ```bash
 source venv/bin/activate
 ```
-# Install required dependencies
+# Install required dependencies (Make sure mongodb is already installed)
 ```bash
-pip3 install -r requirements.txt
-```
-```bash
+pip3 install django django-extensions djongo pytz
 pip install pymongo==3.12.3
 ```
 
 # Initilaize DBs and import data
-
 ```bash
-   python3 manage.py makemigrations
+cd health_insights
+```
+```bash
+python3 manage.py makemigrations
   ```
 ```bash
-  python3 manage.py migrate
+python3 manage.py migrate
   ```
 ```bash
-  python3 manage.py parser2
+python3 manage.py runscript parser2
 ```
 # To run the app
 
