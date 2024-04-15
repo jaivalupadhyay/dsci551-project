@@ -108,6 +108,9 @@ def manager_view(request):
     for p in sleep_db2:
         stress_list.append(p.stress_level)
 
+    stress_list=sorted(stress_list)
+    average_stress = sum(stress_list) / len(stress_list)
+
 
     params={'patients1': p1,
             'patients2': p2,
@@ -123,7 +126,9 @@ def manager_view(request):
             'db1_count': db1_count,
             'db2_count': db2_count,
             'sleep_hours':sleep_hrs_list,
-            'average_sleep': average_sleep
+            'average_sleep': average_sleep,
+            'stress_list':stress_list,
+            'average_stress':average_stress
             }
 
     return render(request, 'insights/manager_view.html', params)
@@ -139,6 +144,8 @@ def manager_graphs(request):
     if request.method == 'POST':
         x_axis = request.POST.get('xaxis')
         y_axis = request.POST.get('yaxis')
+        graph_type = request.POST.get('graph')
+
 
 
         print('Received x-axis value:', x_axis)
