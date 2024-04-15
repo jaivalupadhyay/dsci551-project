@@ -174,7 +174,8 @@ def manager_graphs(request):
     params={'xlabel':x_axis,
             'ylabel':y_axis,
             'x_list':x_list,
-            'y_list':y_list
+            'y_list':y_list,
+            'graph': graph_type
             }
     return render(request,'insights/manager_graphs.html',params)
 
