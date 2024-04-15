@@ -186,15 +186,12 @@ def manager_graphs(request):
 def user_view(request):
     p1 = Patient.objects.using('db1').all()
     p2 = Patient.objects.using('db2').all()
-    # if request.GET.get("user_id"):
-    #     print(request.GET.get("user_id"))
 
     return render(request, 'insights/user_view.html', {'patients1': p1, 'patients2': p2})
 
 
 def user_details(request, pk):
     user = Patient.objects.using('db2' if pk % 2 == 0 else 'db1').filter(patient_id=pk).get()
-    # print('nananananananaanananananananaanananananana',user[0].name)
 
     params = {'user': user}
 

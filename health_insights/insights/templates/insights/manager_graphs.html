@@ -9,58 +9,61 @@
     <h1>Manager Graphs</h1>
     <p>X-axis label: {{ xlabel }}</p>
     <p>Y-axis label: {{ ylabel }}</p>
+    <h4>{{y_list}}</h4>
 
-    <div style="width:800px; height:400px;"> <!-- Increased width for better label visibility -->
+    <div style="width:400px; height:400px;"> <!-- Increased width for better label visibility -->
         <canvas id="myChart"></canvas>
     </div>
 
     <script>
         var ctx = document.getElementById('myChart').getContext('2d');
-        var xValues = {{ x_list|safe }};
-        var yValues = {{ y_list|safe }};
+        var xValues = {{ x_list | safe }};
+        var yValues = {{ y_list | safe }};
         var chart = new Chart(ctx, {
-            type: 'line',
+            type: 'scatter',
             data: {
-                labels: xValues,
                 datasets: [{
-                    label: '{{ ylabel }}', // This labels the dataset
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Adjusted for slight transparency
+                    label: '{{ ylabel | safe }}', // This labels the dataset
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgb(75, 192, 192)',
-                    data: yValues,
+                    data: yValues.map((y, index) => ({x: xValues[index], y: y})), // Correctly structures data for a scatter plot
                     fill: false
                 }]
             },
             options: {
-                responsive: true,  // Ensures the canvas size is responsive
-                maintainAspectRatio: false,  // Helps maintain aspect ratio
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: '{{ ylabel }}'
-                        }
-                    }],
-                    xAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: '{{ xlabel|safe }}'  // Ensure this is rendering correctly
-                        }
-                    }]
-                },
-                plugins: {
-                    legend: {
+                    y: {
+                        beginAtZero: false,  // Set to false to avoid starting at 0
+                        type: 'linear',
                         display: true,
-                        position: 'top',
+                        position: 'left',
+                        min: 10,  // Set minimum value of y-axis
+                        max: 200,  // Set maximum value of y-axis
+                        title: {
+                            display: true,
+                            text: '{{ ylabel | safe }}'  // Correctly set y-axis label
+                        },
+                        ticks: {
+                            stepSize: 5  // Sets the step size between ticks
+                        }
                     },
-                    tooltip: {
-                        enabled: true,
+                    x: {
+                        type: 'linear',
+                        display: true,
+                        position: 'bottom',
+                        title: {
+                            display: true,
+                            text: '{{ xlabel | safe }}'  // Correctly set x-axis label
+                        }
                     }
                 }
             }
         });
     </script>
+    
+    
+    
 </body>
 </html>
