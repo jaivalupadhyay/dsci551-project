@@ -1,9 +1,9 @@
 # dsci551-project
-
+Ensure the python version is 3.8/3.9
 Commands to run the project:
 
 
-# Create virtual Env
+# Create virtual Environment
 ```bash 
 python3 -m venv venv
 ```
