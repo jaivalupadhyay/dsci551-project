@@ -14,10 +14,10 @@ source venv/bin/activate
 ```
 # Install required dependencies (Make sure mongodb is already installed)
 ```bash
-pip3 pip install django django-extensions djongo
-```
-```bash
+pip3 install django django-extensions djongo
 pip install pymongo==3.12.3
+pip install pytz
+
 ```
 
 # Initilaize DBs and import data
@@ -31,7 +31,7 @@ python3 manage.py makemigrations
 python3 manage.py migrate
   ```
 ```bash
-python3 manage.py parser2
+python3 manage.py runscript parser2
 ```
 # To run the app
 
