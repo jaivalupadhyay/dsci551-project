@@ -112,6 +112,9 @@
             font-size: 18px;
             margin-right: 20px;
         }
+        .no-hover:hover{
+            cursor: default
+        }
     </style>
 
 
@@ -136,6 +139,9 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
+                {% if error %}
+                <button class="btn btn-danger no-hover">ID Not Found</button>
+                {% endif%}
             </div>
         </div>
     </div>

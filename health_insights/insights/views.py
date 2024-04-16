@@ -214,16 +214,20 @@ def manager_graphs(request):
 def user_view(request):
     p1 = Patient.objects.using('db1').all()
     p2 = Patient.objects.using('db2').all()
+    error = request.session.pop('error', False)
 
-    return render(request, 'insights/user_view.html', {'patients1': p1, 'patients2': p2})
+    return render(request, 'insights/user_view.html', {'patients1': p1, 'patients2': p2, 'error': error})
 
 
 def user_details(request, pk):
-    user = Patient.objects.using('db2' if pk % 2 == 0 else 'db1').filter(patient_id=pk).get()
+    user = Patient.objects.using('db2' if pk % 2 == 0 else 'db1').filter(patient_id=pk)
+    if len(user):
+        params = {'user': user[0]}
+        return render(request, 'insights/user_details.html', params)
 
-    params = {'user': user}
-
-    return render(request, 'insights/user_details.html', params)
+    else:   
+        request.session['error'] = True
+        return redirect('/user_view')
 
 
 def analysis(request,pk):
