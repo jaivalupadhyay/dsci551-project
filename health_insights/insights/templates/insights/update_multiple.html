@@ -8,79 +8,86 @@
 </head>
 <body>
 
-<nav class="navbar bg-primary px-3" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a href="{% url 'home' %}" class="navbar-brand mb-0 h1"><span>Health Insights</span></a>
+        <a href="{% url 'home' %}" class="navbar-brand">Health Insights</a>
     </div>
 </nav>
 
-<h1 class="text-center">Update Patient Record</h1>
+<div class="container my-5">
+    <h1 class="text-center mb-4">Update Patient Record</h1>
+    <form method="post" class="card">
+        <div class="card-body">
+            {% csrf_token %}
+            <h2 class="h4 mb-3">Filter Criteria (to select records)</h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="filter_gender" class="form-label">Gender</label>
+                    <select class="form-select" id="filter_gender" name="filter_gender">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="filter_age" class="form-label">Age</label>
+                    <div class="input-group">
+                        <select class="form-select" id="filter_age_comparison" name="filter_age_comparison">
+                            <option value="">Equal to</option>
+                            <option value="gt">Greater than</option>
+                            <option value="lt">Less than</option>
+                        </select>
+                        <input type="number" class="form-control" id="filter_age" name="filter_age">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="filter_height" class="form-label">Height (in inches)</label>
+                    <div class="input-group">
+                        <select class="form-select" id="filter_height_comparison" name="filter_height_comparison">
+                            <option value="">Equal to</option>
+                            <option value="gt">Greater than</option>
+                            <option value="lt">Less than</option>
+                        </select>
+                        <input type="number" class="form-control" id="filter_height" name="filter_height" step="0.01">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="filter_weight" class="form-label">Weight (in pounds)</label>
+                    <div class="input-group">
+                        <select class="form-select" id="filter_weight_comparison" name="filter_weight_comparison">
+                            <option value="">Equal to</option>
+                            <option value="gt">Greater than</option>
+                            <option value="lt">Less than</option>
+                        </select>
+                        <input type="number" class="form-control" id="filter_weight" name="filter_weight" step="0.01">
+                    </div>
+                </div>
+            </div>
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-12">
-      <form method="post">
-        {% csrf_token %}
-        <h3>Filter Criteria (to select records)</h3>
-        <div class="mb-3">
-            <label for="filter_gender" class="form-label">Gender</label>
-            <select class="form-select" id="filter_gender" name="filter_gender">
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
+            <h2 class="h4 mt-4 mb-3">Update Values (new values to apply)</h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="new_gender" class="form-label">New Gender</label>
+                    <select class="form-select" id="new_gender" name="new_gender">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="new_blood_type" class="form-label">New Blood Type</label>
+                    <input type="text" class="form-control" id="new_blood_type" name="new_blood_type">
+                </div>
+                <div class="col-md-6">
+                    <label for="new_blood_pressure" class="form-label">New Blood Pressure</label>
+                    <input type="number" class="form-control" id="new_blood_pressure" name="new_blood_pressure" step="0.01">
+                </div>
+            </div>
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-primary btn-lg">Update</button>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="filter_age" class="form-label">Age</label>
-            <select class="form-select" id="filter_age_comparison" name="filter_age_comparison">
-                <option value="">Equal to</option>
-                <option value="gt">Greater than</option>
-                <option value="lt">Less than</option>
-            </select>
-            <input type="number" class="form-control" id="filter_age" name="filter_age">
-        </div>
-        <div class="mb-3">
-            <label for="filter_height" class="form-label">Height (in inches)</label>
-            <select class="form-select" id="filter_height_comparison" name="filter_height_comparison">
-                <option value="">Equal to</option>
-                <option value="gt">Greater than</option>
-                <option value="lt">Less than</option>
-            </select>
-            <input type="number" step="0.01" class="form-control" id="filter_height" name="filter_height">
-        </div>
-        <div class="mb-3">
-            <label for="filter_weight" class="form-label">Weight (in pounds)</label>
-            <select class="form-select" id="filter_weight_comparison" name="filter_weight_comparison">
-                <option value="">Equal to</option
-                <option value="gt">Greater than</option>
-                <option value="lt">Less than</option>
-            </select>
-            <input type="number" step="0.01" class="form-control" id="filter_weight" name="filter_weight">
-        </div>
-
-        <h3>Update Values (new values to apply)</h3>
-        <div class="mb-3">
-            <label for="new_gender" class="form-label">New Gender</label>
-            <select class="form-select" id="new_gender" name="new_gender">
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="new_blood_type" class="form-label">New Blood Type</label>
-            <input type="text" class="form-control" id="new_blood_type" name="new_blood_type">
-        </div>
-        <div class="mb-3">
-            <label for="new_blood_pressure" class="form-label">New Blood Pressure</label>
-            <input type="number" step="0.01" class="form-control" id="new_blood_pressure" name="new_blood_pressure">
-        </div>
-        <!-- Include other fields updates as necessary -->
-
-        <button type="submit" class="btn btn-outline-primary btn-lg">Update</button>
-      </form>
-    </div>
-  </div>
+    </form>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
