@@ -22,16 +22,16 @@
         var chartType = '{{ graph | safe }}';  // This will dynamically set the chart type
     
         var chart = new Chart(ctx, {
-            type: chartType,  // Use the dynamically set chart type
+            type: chartType,
             data: {
-                labels: xValues,  // Necessary for bar and line charts
+                labels: xValues, 
                 datasets: [{
                     label: '{{ ylabel | safe }}',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgb(75, 192, 192)',
                     data: (chartType === 'scatter') ? yValues.map((y, index) => ({x: xValues[index], y: y})) : yValues,
                     fill: false,
-                    showLine: chartType === 'line' ? true : false  // Needed to ensure line charts are drawn as lines
+                    showLine: chartType === 'line' ? true : false
                 }]
             },
             options: {
