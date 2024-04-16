@@ -71,17 +71,18 @@
 </style>
 <body>
     <!-- Navbar -->
-    <nav class="navbar bg-primary px-3" data-bs-theme="dark">
-        <!-- Navbar content -->
-        <div class="container-fluid">
-            <a href="{% url 'home' %}" class="navbar-brand mb-0 h1">
-                <span>Health Insights</span>
-            </a>
-            <a href="{% url 'analysis' user.patient_id  %}" class="navbar-brand mb-0 h1">
-                <span>Analysis</span>
-            </a>
-        </div>
-    </nav>
+    <nav class="navbar" style="background-color: #343a40;" data-bs-theme="dark">
+      <!-- Navbar content -->
+      <div class="container-fluid">
+          <a href="{% url 'home' %}" class="navbar-brand mb-0 h1">
+              <span>Health Insights</span>
+          </a>
+          <a href="{% url 'analysis' user.patient_id  %}" class="navbar-brand mb-0 h1">
+              <span>Analysis</span>
+          </a>
+      </div>
+  </nav>
+  
 
     <!-- User details -->
     <div class="container">

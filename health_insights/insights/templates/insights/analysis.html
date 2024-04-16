@@ -98,7 +98,7 @@
 <body>
 <div class="header">
     <h1>Patient Data Chart</h1>
-    <a href="#" class="home-button"><i class="fas fa-home"></i> Home</a>
+    <a href="{% url 'home' %}" class="home-button"><i class="fas fa-home"></i> Home</a>
 </div>
 <div class="chart-container">
     {% for chart in charts_data %}

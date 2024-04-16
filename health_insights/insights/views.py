@@ -203,8 +203,8 @@ def manager_graphs(request):
             patient_y_value = getattr(patient, y_axis, "Attribute not found")
             y_list.append(patient_y_value)
 
-    params={'xlabel':x_axis,
-            'ylabel':y_axis,
+    params={'xlabel':x_axis.upper(),
+            'ylabel':y_axis.upper(),
             'x_list':x_list,
             'y_list':y_list,
             'graph': graph_type
