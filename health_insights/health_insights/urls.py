@@ -36,7 +36,9 @@ urlpatterns = [
     path('delete/',views.delete,name = "delete"),
     path('update/',views.update,name = "update"),
     path('manager_graphs/',views.manager_graphs,name="manager_graphs"),
-    path('add_multiple/',views.add_multiple,name = "add_multiple")
+    path('add_multiple/',views.add_multiple,name = "add_multiple"),
+    path('add_multiple/',views.add_multiple,name = "add_multiple"),
+    path('update_multiple/',views.update_multiple,name = "update_multiple")
 
 ]
 if settings.DEBUG:

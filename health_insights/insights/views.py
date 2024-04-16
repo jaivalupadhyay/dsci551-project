@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import shutil
+from pathlib import Path
 
 import json
 import os
@@ -341,7 +343,17 @@ def add(request):
 
     return render(request, 'insights/add.html', params)
 
-
+def delete_directory_contents(path):
+    p = Path(path)
+    if p.exists():  # Check if the directory exists
+        for sub in p.iterdir():  # iterates over the items of the directory
+            if sub.is_dir():
+                shutil.rmtree(sub)  # removes directories recursively
+            else:
+                sub.unlink()  # removes files and links
+        print(f"Contents of {path} have been deleted.")
+    else:
+        print(f"The directory {path} does not exist.")
 def add_multiple(request):
     if request.method == "POST":
         file = request.FILES.get('file')
@@ -353,7 +365,7 @@ def add_multiple(request):
             # Create a new File instance and save the uploaded file
             File.objects.create(file=file)
 
-            print(f'Uploaded file name: {file.name}')
+            # print(f'Uploaded file name: {file.name}')
             file_name =  file.name
             json_file = os.getcwd() + f'/media/{file.name}'
 
@@ -387,6 +399,12 @@ def add_multiple(request):
 
                     patient = Patient.objects.using(database).create(**patient_record)
                     print(f'Added {patient.name} to database {database}')
+
+                    # delete contents of media folder
+                    delete_path = Path(os.getcwd()) / 'media'
+
+                    # Delete the contents of this path
+                    delete_directory_contents(delete_path)
 
 
             # Redirect to a new URL if file is valid and saved:
@@ -520,3 +538,7 @@ def update(request):
 
     params = {}
     return render(request, 'insights/update.html', params)
+
+
+def update_multiple(request):
+    return render(request,'insights/update_multiple.html')
