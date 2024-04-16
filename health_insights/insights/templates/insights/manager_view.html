@@ -12,6 +12,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-radial-gauge"></script>
        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -209,7 +211,7 @@
       height: 100%;
     }
 
-  
+
   </style>
 
 <style>
@@ -250,6 +252,7 @@
         }
     </style>
 
+<!--graphical anysis-->
 
 
   </head>
@@ -440,79 +443,81 @@
 </div>
 <!--    table end-->
 
-    <div class="text-center">
+<div class="text-center mt-4 mb-4">
     <h2>Graphical Analysis</h2>
 </div>
 
-<!-- Flex container -->
-<div class="d-flex justify-content-center p-4">
-    <form method="post" action="{% url 'manager_graphs' %}" class="w-75">
-        {% csrf_token %}
-        <div class="row"> <!-- Ensures that all elements are on the same line -->
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="x-axis-select">X - axis</label>
-                    <select name="xaxis" id="x-axis-select" class="form-control" required>
-                        <option value="">Select an option for X-axis</option>
-                        <option value="age">Age</option>
-                        <option value="gender">Gender</option>
-                        <option value="height">Height</option>
-                        <option value="weight">Weight</option>
-                        <option value="blood_type">Blood Type</option>
-                        <option value="blood_pressure">Blood Pressure</option>
-                        <option value="oxygen_level">Oxygen Level</option>
-                        <option value="heart_rate">Heart Rate</option>
-                        <option value="blood_sugar">Blood Sugar</option>
-                        <option value="cholesterol">Cholesterol</option>
-                        <option value="body_temperature">Body Temperature</option>
-                        <option value="bmi">BMI</option>
-                        <option value="sleep_hours">Sleep Hours</option>
-                        <option value="stress_level">Stress Level</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="y-axis-select">Y - axis</label>
-                    <select name="yaxis" id="y-axis-select" class="form-control" required>
-                        <option value="">Select an option for Y-axis</option>
-                        <option value="age">Age</option>
-                        <option value="gender">Gender</option>
-                        <option value="height">Height</option>
-                        <option value="weight">Weight</option>
-                        <option value="blood_type">Blood Type</option>
-                        <option value="blood_pressure">Blood Pressure</option>
-                        <option value="oxygen_level">Oxygen Level</option>
-                        <option value="heart_rate">Heart Rate</option>
-                        <option value="blood_sugar">Blood Sugar</option>
-                        <option value="cholesterol">Cholesterol</option>
-                        <option value="body_temperature">Body Temperature</option>
-                        <option value="bmi">BMI</option>
-                        <option value="sleep_hours">Sleep Hours</option>
-                        <option value="stress_level">Stress Level</option>
-                    </select>
-                </div>
-            </div>
+<!-- Flex container for center alignment and padding -->
+<div class="d-flex justify-content-center px-4">
+    <div class="card" style="width: 90%; max-width: 900px;">
+        <div class="card-body">
+            <!-- Form starts -->
+            <form method="post" action="{% url 'manager_graphs' %}">
+                {% csrf_token %}
+                <div class="row g-3"> <!-- Grid with gap -->
+                    <!-- X-axis Selection -->
+                    <div class="col-md-6">
+                        <label for="x-axis-select" class="form-label">X - axis</label>
+                        <select name="xaxis" id="x-axis-select" class="form-select" required>
+                            <option value="">Select an option for X-axis</option>
+                            <option value="age">Age</option>
+                            <option value="gender">Gender</option>
+                            <option value="height">Height</option>
+                            <option value="weight">Weight</option>
+                            <option value="blood_type">Blood Type</option>
+                            <option value="blood_pressure">Blood Pressure</option>
+                            <option value="oxygen_level">Oxygen Level</option>
+                            <option value="heart_rate">Heart Rate</option>
+                            <option value="blood_sugar">Blood Sugar</option>
+                            <option value="cholesterol">Cholesterol</option>
+                            <option value="body_temperature">Body Temperature</option>
+                            <option value="bmi">BMI</option>
+                            <option value="sleep_hours">Sleep Hours</option>
+                            <option value="stress_level">Stress Level</option>
+                        </select>
+                    </div>
 
+                    <!-- Y-axis Selection -->
+                    <div class="col-md-6">
+                        <label for="y-axis-select" class="form-label">Y - axis</label>
+                        <select name="yaxis" id="y-axis-select" class="form-select" required>
+                            <option value="">Select an option for Y-axis</option>
+                            <option value="age">Age</option>
+                            <option value="gender">Gender</option>
+                            <option value="height">Height</option>
+                            <option value="weight">Weight</option>
+                            <option value="blood_type">Blood Type</option>
+                            <option value="blood_pressure">Blood Pressure</option>
+                            <option value="oxygen_level">Oxygen Level</option>
+                            <option value="heart_rate">Heart Rate</option>
+                            <option value="blood_sugar">Blood Sugar</option>
+                            <option value="cholesterol">Cholesterol</option>
+                            <option value="body_temperature">Body Temperature</option>
+                            <option value="bmi">BMI</option>
+                            <option value="sleep_hours">Sleep Hours</option>
+                            <option value="stress_level">Stress Level</option>
+                        </select>
+                    </div>
 
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="graph-select">graph</label>
-                    <select name="graph" id="graph-select" class="form-control" required>
-                        <option value="">selection graph</option>
-                        <option value="line">Line graph</option>
-                        <option value="scatter">scatter plot</option>
-                        <option value="bar">Bar chart</option>
-                    </select>
+                    <!-- Graph Type Selection -->
+                    <div class="col-12">
+                        <label for="graph-select" class="form-label">Graph Type</label>
+                        <select name="graph" id="graph-select" class="form-select" required>
+                            <option value="">Select a graph type</option>
+                            <option value="line">Line Graph</option>
+                            <option value="scatter">Scatter Plot</option>
+                            <option value="bar">Bar Chart</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
+                <!-- Submit Button -->
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary">Create Graph</button>
+                </div>
+            </form>
         </div>
-        <br>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary form-control">Create graph</button> <!-- Button width is set to the full width of the form -->
-        </div>
-    </form>
+    </div>
 </div>
 
 
