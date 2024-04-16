@@ -333,37 +333,46 @@
 <br>
 
 <div class="container py-5">
-    <div class="row g-4">
-        <div class="col-lg-3 col-md-6">
-            <div class="feature-container text-center p-4">
-                <i class="fas fa-user-plus feature-icon"></i>
-                <div class="feature-text">Add User</div>
-                <a href="{% url 'add' %}" class="btn btn-custom mt-4 w-100">Add User</a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="feature-container text-center p-4">
-                <i class="fas fa-user-edit feature-icon"></i>
-                <div class="feature-text">Update User</div>
-                <a href="{% url 'update' %}" class="btn btn-custom mt-4 w-100">Update User</a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="feature-container text-center p-4">
-                <i class="fas fa-user-times feature-icon"></i>
-                <div class="feature-text">Delete User</div>
-                <a href="{% url 'delete' %}" class="btn btn-custom mt-4 w-100">Delete User</a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="feature-container text-center p-4">
-                <i class="fas fa-chart-bar feature-icon"></i>
-                <div class="feature-text">See Statistics</div>
-                <a href="#" class="btn btn-custom mt-4 w-100" id="statsbutton">See Statistics</a>
-            </div>
-        </div>
-    </div>
+  <div class="row g-4">
+      <div class="col-lg-3 col-md-6">
+          <a href="{% url 'add' %}" class="text-decoration-none">
+              <div class="feature-container text-center p-4">
+                  <i class="fas fa-user-plus feature-icon"></i>
+                  <div class="feature-text">Add User</div>
+                  <div class="btn btn-custom mt-4 w-100">Add User</div>
+              </div>
+          </a>
+      </div>
+      <div class="col-lg-3 col-md-6">
+          <a href="{% url 'update' %}" class="text-decoration-none">
+              <div class="feature-container text-center p-4">
+                  <i class="fas fa-user-edit feature-icon"></i>
+                  <div class="feature-text">Update User</div>
+                  <div class="btn btn-custom mt-4 w-100">Update User</div>
+              </div>
+          </a>
+      </div>
+      <div class="col-lg-3 col-md-6">
+          <a href="{% url 'delete' %}" class="text-decoration-none">
+              <div class="feature-container text-center p-4">
+                  <i class="fas fa-user-times feature-icon"></i>
+                  <div class="feature-text">Delete User</div>
+                  <div class="btn btn-custom mt-4 w-100">Delete User</div>
+              </div>
+          </a>
+      </div>
+      <div class="col-lg-3 col-md-6">
+          <a href="#" id="statsbutton" class="text-decoration-none">
+              <div class="feature-container text-center p-4">
+                  <i class="fas fa-chart-bar feature-icon"></i>
+                  <div class="feature-text">See Statistics</div>
+                  <div class="btn btn-custom mt-4 w-100">See Statistics</div>
+              </div>
+          </a>
+      </div>
+  </div>
 </div>
+
 
 
 
