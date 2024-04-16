@@ -11,6 +11,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-radial-gauge"></script>
+       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -211,7 +212,43 @@
   
   </style>
 
-
+<style>
+        body {
+            background-color: #f4f4f8; /* Slightly off-white background for a light and airy feel */
+            font-family: 'Helvetica Neue', Arial, sans-serif; /* Modern font */
+        }
+        .feature-container {
+            background: linear-gradient(145deg, #ffffff, #e6e7ee);
+            border: none;
+            border-radius: 12px; /* Smoothly rounded borders for a soft, modern look */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Deeper shadow for more depth */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transitions for interactive hover effect */
+        }
+        .feature-container:hover {
+            transform: translateY(-10px); /* Raise the container slightly on hover */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Increase shadow size on hover for a "lifting" effect */
+        }
+        .feature-icon {
+            font-size: 60px; /* Increased icon size for better visibility */
+            color: #1064ea; /* A vibrant blue that stands out */
+            margin-bottom: 15px; /* Space between icon and text */
+        }
+        .feature-text {
+            font-size: 20px; /* Slightly larger text for better readability */
+            font-weight: 500; /* Medium font weight for clarity */
+            color: #333; /* Dark grey text for high contrast */
+        }
+        .btn-custom {
+            background-color: #1064ea; /* Custom button color that matches the icon color */
+            border: none; /* No border for a cleaner look */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            transition: background-color 0.2s; /* Smooth transition for hover effects */
+        }
+        .btn-custom:hover, .btn-custom:focus {
+            background-color: #0d58d1; /* Slightly darker blue on hover/focus for interactive feedback */
+            outline: none; /* Remove outline to maintain clean aesthetics */
+        }
+    </style>
 
 
 
@@ -295,47 +332,38 @@
 
 <br>
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-3 mb-4">
-            <div class="card my-card" style="width: 100%;">
-                <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/What_is_Data_Types_of_Data_and_How_To_Analyze_Data.jpg" class="card-img-top" alt="Data Analysis">
-                <div class="card-body">
-
-                    <a href="{% url 'add' %}" class="btn btn-primary" role="button" style="width: 100%;">Add User</a>
-                </div>
+<div class="container py-5">
+    <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+            <div class="feature-container text-center p-4">
+                <i class="fas fa-user-plus feature-icon"></i>
+                <div class="feature-text">Add User</div>
+                <a href="{% url 'add' %}" class="btn btn-custom mt-4 w-100">Add User</a>
             </div>
         </div>
-        <div class="col-md-3 mb-4">
-            <div class="card my-card" style="width: 100%;">
-                <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/What_is_Data_Types_of_Data_and_How_To_Analyze_Data.jpg" class="card-img-top" alt="Data Management">
-                <div class="card-body">
-
-                    <a href="{% url 'update' %}" class="btn btn-primary" role="button" style="width: 100%;">Update User</a>
-                </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="feature-container text-center p-4">
+                <i class="fas fa-user-edit feature-icon"></i>
+                <div class="feature-text">Update User</div>
+                <a href="{% url 'update' %}" class="btn btn-custom mt-4 w-100">Update User</a>
             </div>
         </div>
-        <div class="col-md-3 mb-4">
-            <div class="card my-card" style="width: 100%;">
-                <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/What_is_Data_Types_of_Data_and_How_To_Analyze_Data.jpg" class="card-img-top" alt="Data Storage">
-                <div class="card-body">
-
-                    <a href="{% url 'delete' %}" class="btn btn-primary" role="button" style="width: 100%;">Delete User</a>
-                </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="feature-container text-center p-4">
+                <i class="fas fa-user-times feature-icon"></i>
+                <div class="feature-text">Delete User</div>
+                <a href="{% url 'delete' %}" class="btn btn-custom mt-4 w-100">Delete User</a>
             </div>
         </div>
-        <div class="col-md-3 mb-4">
-            <div class="card my-card" style="width: 100%;">
-                <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/What_is_Data_Types_of_Data_and_How_To_Analyze_Data.jpg" class="card-img-top" alt="Data Security">
-                <div class="card-body">
-
-                    <a href="" class="btn btn-primary" role="button" id="statsbutton" style="width: 100%;">See Statistics</a>
-                </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="feature-container text-center p-4">
+                <i class="fas fa-chart-bar feature-icon"></i>
+                <div class="feature-text">See Statistics</div>
+                <a href="#" class="btn btn-custom mt-4 w-100" id="statsbutton">See Statistics</a>
             </div>
         </div>
     </div>
 </div>
-
 
 
 
@@ -456,6 +484,8 @@
                     </select>
                 </div>
             </div>
+
+
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="graph-select">graph</label>
