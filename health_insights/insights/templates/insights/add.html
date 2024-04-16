@@ -20,6 +20,19 @@
     </nav>
 
   <h1>Add page</h1>
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+    <input type="file" name="file">
+    <input type="submit">
+</form>
+
+
+
+
+
+
+<!--      single add-->
+      <h2>add single patient </h2>
 
 <div class="container">
   <div class="row justify-content-center">

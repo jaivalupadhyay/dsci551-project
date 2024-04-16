@@ -56,18 +56,6 @@
 
 <!--nav end-->
 
-      <h2>Patients Information</h2>
-
-    <ul>
-        {% for patient in patients1 %}
-            <li>ID: {{ patient.patient_id }}, Name: {{ patient.name }}, Weight: {{ patient.weight }} kg, Height: {{ patient.height }} cm</li>
-        {% endfor %}
-    </ul>
-    <ul>
-        {% for patient in patients2 %}
-            <li>ID: {{ patient.patient_id }}, Name: {{ patient.name }}, Weight: {{ patient.weight }} kg, Height: {{ patient.height }} cm</li>
-        {% endfor %}
-    </ul>
 
    <a class="btn btn-primary" href="{% url 'manager_view'  %}" role="button">Manager View</a>
       <br><br>

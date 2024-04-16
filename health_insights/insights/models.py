@@ -27,3 +27,7 @@ class Patient(models.Model):
 
     def __str__(self):
         return self.patient_id
+
+
+class FileAdd(models.Model):
+    data_file = models.FileField(null=True,default=None)

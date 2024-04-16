@@ -6,7 +6,12 @@ from .models import Patient
 from django.db.models import F
 from django.shortcuts import render, redirect
 from django.urls import reverse
+<<<<<<< Updated upstream
 from django.views.decorators.http import require_http_methods
+=======
+from django.shortcuts import render
+
+>>>>>>> Stashed changes
 from .models import Patient
 
 
