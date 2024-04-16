@@ -2,10 +2,9 @@
 from __future__ import unicode_literals
 import shutil
 from pathlib import Path
-
 import json
 import os
-
+from django.contrib import messages
 from django.http import HttpResponse, request
 from django.shortcuts import get_object_or_404
 from .models import Patient
@@ -14,8 +13,8 @@ from django.db.models import F
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
+from django.db.models import Q
 from django.shortcuts import render
-
 from .models import Patient
 
 
@@ -414,22 +413,6 @@ def add_multiple(request):
 
     return render(request, 'insights/add_multiple.html')
 
-
-# def delete(request):
-#     if request.method == "POST":
-#         patient_id = request.POST.get('patient_id')
-
-#         if int(patient_id) % 2 == 0:
-#             patient = Patient.objects.using('db2').filter(patient_id=patient_id).delete()
-#         else:
-#             patient = Patient.objects.using('db1').filter(patient_id=patient_id).delete()
-
-#         # for patient in patients:
-#         #     patient.delete()
-
-#         return redirect('manager_view')
-#     return render(request, 'insights/delete.html')
-
 @require_http_methods(["GET", "POST"])
 def delete(request):
     if request.method == "POST":
@@ -540,5 +523,50 @@ def update(request):
     return render(request, 'insights/update.html', params)
 
 
+@require_http_methods(["GET", "POST"])
 def update_multiple(request):
-    return render(request,'insights/update_multiple.html')
+    if request.method == "POST":
+        # Constructing Q objects for filter conditions
+        query = Q()
+
+        # Gender filter
+        if filter_gender := request.POST.get('filter_gender'):
+            query &= Q(gender__iexact=filter_gender)
+
+        # Age filter
+        age_comparison = request.POST.get('filter_age_comparison', '')
+        if age := request.POST.get('filter_age'):
+            query &= Q(age__gt=age) if age_comparison == 'gt' else Q(age__lt=age) if age_comparison == 'lt' else Q(age=age)
+
+        # Height filter
+        height_comparison = request.POST.get('filter_height_comparison', '')
+        if height := request.POST.get('filter_height'):
+            query &= Q(height__gt=height) if height_comparison == 'gt' else Q(height__lt=height) if height_comparison == 'lt' else Q(height=height)
+
+        # Weight filter
+        weight_comparison = request.POST.get('filter_weight_comparison', '')
+        if weight := request.POST.get('filter_weight'):
+            query &= Q(weight__gt=weight) if weight_comparison == 'gt' else Q(weight__lt=weight) if weight_comparison == 'lt' else Q(weight=weight)
+
+        # Update fields construction
+        update_fields = {}
+        if new_gender := request.POST.get('new_gender'):
+            update_fields['gender'] = new_gender
+        if new_blood_type := request.POST.get('new_blood_type'):
+            update_fields['blood_type'] = new_blood_type
+        if new_blood_pressure := request.POST.get('new_blood_pressure'):
+            update_fields['blood_pressure'] = new_blood_pressure
+        # Additional fields updates can be added here in the same pattern
+
+        if not query or not update_fields:
+            messages.error(request, "No valid filters or update fields provided.")
+            return redirect('update_patient')
+
+        # Applying the update
+        updated_count1 = Patient.objects.using('db1').filter(query).update(**update_fields)
+        updated_count2 = Patient.objects.using('db2').filter(query).update(**update_fields)
+        messages.success(request, f'Updated {updated_count1 + updated_count2} patient(s).')
+
+        return redirect('manager_view')
+
+    return render(request, 'insights/update_multiple.html')
