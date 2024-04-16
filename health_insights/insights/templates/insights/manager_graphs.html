@@ -11,7 +11,7 @@
     <p>Y-axis label: {{ ylabel }}</p>
     <p>Graph Type: {{ graph }}</p>
 
-    <div style="width:400px; height:400px;"> <!-- Increased width for better label visibility -->
+    <div style="width:400px; height:400px;">
         <canvas id="myChart"></canvas>
     </div>
 
@@ -19,7 +19,7 @@
         var ctx = document.getElementById('myChart').getContext('2d');
         var xValues = {{ x_list | safe }};
         var yValues = {{ y_list | safe }};
-        var chartType = '{{ graph | safe }}';  // This will dynamically set the chart type
+        var chartType = '{{ graph | safe }}';
     
         var chart = new Chart(ctx, {
             type: chartType,

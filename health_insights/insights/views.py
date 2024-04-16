@@ -6,6 +6,7 @@ from .models import Patient
 from django.db.models import F
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.views.decorators.http import require_http_methods
 from .models import Patient
 
 
@@ -109,7 +110,7 @@ def manager_view(request):
         stress_list.append(p.stress_level)
 
     stress_list = sorted(stress_list)
-    average_stress = sum(stress_list) / len(stress_list)
+    average_stress = sum(stress_list) / len(stress_list) if stress_list else 0
 
     # weight gauge
     weight_list=[]
@@ -118,7 +119,7 @@ def manager_view(request):
     for p in sleep_db2:
         weight_list.append(p.cholesterol)
     weight_list=sorted(weight_list)
-    average_weight =sum(weight_list) / len(weight_list)
+    average_weight =sum(weight_list) / len(weight_list) if weight_list else 0
 
     # hight gauge
     height_list=[]
@@ -127,7 +128,7 @@ def manager_view(request):
     for p in sleep_db2:
         height_list.append(p.oxygen_level)
     height_list=sorted(height_list)
-    average_height =sum(height_list) / len(height_list)
+    average_height =sum(height_list) / len(height_list) if height_list else 0
 
 
     params={'patients1': p1,
@@ -334,19 +335,68 @@ def add(request):
     return render(request, 'insights/add.html', params)
 
 
+# def delete(request):
+#     if request.method == "POST":
+#         patient_id = request.POST.get('patient_id')
+
+#         if int(patient_id) % 2 == 0:
+#             patient = Patient.objects.using('db2').filter(patient_id=patient_id).delete()
+#         else:
+#             patient = Patient.objects.using('db1').filter(patient_id=patient_id).delete()
+
+#         # for patient in patients:
+#         #     patient.delete()
+
+#         return redirect('manager_view')
+#     return render(request, 'insights/delete.html')
+
+@require_http_methods(["GET", "POST"])
 def delete(request):
     if request.method == "POST":
+        # Basic fields
         patient_id = request.POST.get('patient_id')
+        name = request.POST.get('name')
+        gender = request.POST.get('gender')
 
-        if int(patient_id) % 2 == 0:
-            patient = Patient.objects.using('db2').filter(patient_id=patient_id).delete()
+        # Fields with comparisons
+        age_comparison = request.POST.get('age_comparison', '')
+        age = request.POST.get('age')
+        height_comparison = request.POST.get('height_comparison', '')
+        height = request.POST.get('height')
+        weight_comparison = request.POST.get('weight_comparison', '')
+        weight = request.POST.get('weight')
+
+        # Building the query based on the input provided
+        query = {}
+        if patient_id:
+            query['patient_id'] = patient_id
+        if name:
+            query['name__iexact'] = name
+        if gender:
+            query['gender__iexact'] = gender
+
+        # Adding queries with possible comparisons
+        if age:
+            query[f'age__{age_comparison}' if age_comparison else 'age'] = age
+        if height:
+            query[f'height__{height_comparison}' if height_comparison else 'height'] = height
+        if weight:
+            query[f'weight__{weight_comparison}' if weight_comparison else 'weight'] = weight
+
+
+        if patient_id:
+        # Determining the database to use
+            database = 'db2' if int(patient_id) % 2 == 0 else 'db1'
+            
+            # Deleting the records
+            Patient.objects.using(database).filter(**query).delete()
+
         else:
-            patient = Patient.objects.using('db1').filter(patient_id=patient_id).delete()
-
-        # for patient in patients:
-        #     patient.delete()
+            Patient.objects.using('db1').filter(**query).delete()
+            Patient.objects.using('db2').filter(**query).delete()
 
         return redirect('manager_view')
+
     return render(request, 'insights/delete.html')
 
 
