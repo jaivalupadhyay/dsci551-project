@@ -264,7 +264,7 @@ def analysis(request,pk):
 
 
 def bmi_calculation(height, weight):
-    height_m = height / 100.0
+    height_m = height * 0.0254
     weight_kg = weight * 0.453592
 
     bmi = weight_kg / (height_m ** 2)
