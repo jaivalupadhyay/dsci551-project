@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+import json
+import os
+
 from django.http import HttpResponse, request
 from django.shortcuts import get_object_or_404
 from .models import Patient
+from .models import File
 from django.db.models import F
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -335,6 +340,61 @@ def add(request):
     params = {}
 
     return render(request, 'insights/add.html', params)
+
+
+def add_multiple(request):
+    if request.method == "POST":
+        file = request.FILES.get('file')
+
+        if file is not None:
+            if not file.name.lower().endswith('.json'):
+                return HttpResponse("File is not a JSON type", status=400)
+
+            # Create a new File instance and save the uploaded file
+            File.objects.create(file=file)
+
+            print(f'Uploaded file name: {file.name}')
+            file_name =  file.name
+            json_file = os.getcwd() + f'/media/{file.name}'
+
+            print("Current working directory:", os.getcwd())
+
+            with open(json_file,'r') as dataset:
+                data = json.load(dataset)['Sheet1']
+
+                for item in data:
+                    patient_id = item['Patient ID']
+                    database = 'db2' if int(patient_id) % 2 == 0 else 'db1'
+
+                    patient_record = {
+                        'patient_id': patient_id,
+                        'name': item['Name'],
+                        'age': item.get('Age', None),
+                        'gender': item.get('Gender', None),
+                        'height': item.get('Height(Inches)', None),
+                        'weight': item.get('Weight(Pounds)', None),
+                        'blood_type': item.get('Blood Type', None),
+                        'blood_pressure': item.get('Blood Pressure', None),
+                        'oxygen_level': item.get('Oxygen level', None),
+                        'heart_rate': item.get('Heart Rate', 0),
+                        'blood_sugar': item.get('Blood Sugar', None),
+                        'cholesterol': item.get('Cholestrol', 0),  # Corrected field name spelling
+                        'body_temperature': item.get('Body Temeperature', None),  # Corrected field name spelling
+                        'sleep_hours': item.get('Sleep Hours', None),
+                        'bmi': item.get('BMI', None),
+                        'stress_level': item.get('Stress Level', None)
+                    }
+
+                    patient = Patient.objects.using(database).create(**patient_record)
+                    print(f'Added {patient.name} to database {database}')
+
+
+            # Redirect to a new URL if file is valid and saved:
+            return redirect('manager_view')  # Replace 'some-view-name' with your actual view or URL name
+        else:
+            return HttpResponse("No file uploaded", status=400)
+
+    return render(request, 'insights/add_multiple.html')
 
 
 # def delete(request):

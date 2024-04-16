@@ -29,5 +29,5 @@ class Patient(models.Model):
         return self.patient_id
 
 
-class FileAdd(models.Model):
-    data_file = models.FileField(null=True,default=None)
+class File(models.Model):
+    file = models.FileField()
