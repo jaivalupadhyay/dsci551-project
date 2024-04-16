@@ -39,6 +39,82 @@
         }
     </script>
 
+<!--      sleep gauge scrript end-->
+
+<!--      stress gauge script start-->
+<script type="text/javascript">
+        google.charts.load('current', {'packages':['gauge']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Label', 'Value'],
+                ['Stress', {{ average_stress|floatformat:2 }}], // Ensure your context variable is correctly referenced
+            ]);
+
+            var options = {
+                width: 200, height: 200,
+                redFrom: 0.7, redTo: 1,
+                yellowFrom: 0.4, yellowTo: 0.7,
+                greenFrom: 0, greenTo: 0.4,
+                minorTicks: 10,
+                max: 1
+            };
+
+            var chart = new google.visualization.Gauge(document.getElementById('stress_gauge_div'));
+            chart.draw(data, options);
+        }
+    </script>
+<!--      stress gauge script end -->
+
+<!--w and h script start-->
+      <script type="text/javascript">
+        google.charts.load('current', {'packages':['gauge']});
+        google.charts.setOnLoadCallback(drawCharts);
+
+        function drawCharts() {
+            // Prepare data for the Weight Gauge
+            var weightData = google.visualization.arrayToDataTable([
+                ['Label', 'Value'],
+                ['Cholesterol', {{ average_weight|floatformat:2 }}],
+            ]);
+
+            // Prepare data for the Height Gauge
+            var heightData = google.visualization.arrayToDataTable([
+                ['Label', 'Value'],
+                ['O2 Level', {{ average_height|floatformat:2 }}],
+            ]);
+
+            // Options for the Cholesterol Gauge
+            var weightOptions = {
+                width: 200, height: 200,
+                greenFrom: 0, greenTo: 200,  // Example values, adjust as needed
+                yellowFrom: 200, yellowTo: 240,
+                redFrom: 240, redTo: 300,     // Example values, adjust as needed
+                minorTicks: 5,
+                max: 300
+            };
+
+            // Options for the O2 Gauge
+            var heightOptions = {
+                width: 200, height: 200,
+                greenFrom: 92, greenTo: 100,
+                yellowFrom: 80, yellowTo: 92,
+                redFrom: 0, redTo: 80,     // Example values, adjust as needed
+                minorTicks: 5,
+                max: 100
+            };
+
+            // Draw the Weight Gauge
+            var weightChart = new google.visualization.Gauge(document.getElementById('weight_gauge_div'));
+            weightChart.draw(weightData, weightOptions);
+
+            // Draw the Height Gauge
+            var heightChart = new google.visualization.Gauge(document.getElementById('height_gauge_div'));
+            heightChart.draw(heightData, heightOptions);
+        }
+    </script>
+<!--      w and h script end-->
 
 
 
@@ -138,7 +214,18 @@
     <h2>Sleep Hours Gauge</h2>
     <div id="gauge_div" style="width: 400px; height: 400px;"></div>
 <!--sleep guage end-->
+<!--stress graph-->
+    <h2>Stress Level Gauge</h2>
+    <div id="stress_gauge_div" style="width: 400px; height: 400px;"></div>
+<!--stress graph end-->
 
+<!--hieht and weight guage-->
+    <h2>Health Metrics Gauges</h2>
+    <div style="display: flex; justify-content: space-around; align-items: center;">
+        <div id="weight_gauge_div" style="width: 300px; height: 300px;"></div>
+        <div id="height_gauge_div" style="width: 300px; height: 300px;"></div>
+    </div>
+<!--end of height and weight gauge-->
 <!--count graph start-->
     <div class="chart-container px-4" style="width:350px">
         <canvas id="dbCountChart"></canvas>

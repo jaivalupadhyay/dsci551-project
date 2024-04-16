@@ -108,8 +108,26 @@ def manager_view(request):
     for p in sleep_db2:
         stress_list.append(p.stress_level)
 
-    stress_list=sorted(stress_list)
+    stress_list = sorted(stress_list)
     average_stress = sum(stress_list) / len(stress_list)
+
+    # weight gauge
+    weight_list=[]
+    for p in sleep_db1:
+        weight_list.append(p.cholesterol)
+    for p in sleep_db2:
+        weight_list.append(p.cholesterol)
+    weight_list=sorted(weight_list)
+    average_weight =sum(weight_list) / len(weight_list)
+
+    # hight gauge
+    height_list=[]
+    for p in sleep_db1:
+        height_list.append(p.oxygen_level)
+    for p in sleep_db2:
+        height_list.append(p.oxygen_level)
+    height_list=sorted(height_list)
+    average_height =sum(height_list) / len(height_list)
 
 
     params={'patients1': p1,
@@ -128,7 +146,12 @@ def manager_view(request):
             'sleep_hours':sleep_hrs_list,
             'average_sleep': average_sleep,
             'stress_list':stress_list,
-            'average_stress':average_stress
+            'average_stress':average_stress,
+            'weight_list':weight_list,
+            'average_weight':average_weight,
+            'height_list':height_list,
+            'average_height':average_height
+
             }
 
     return render(request, 'insights/manager_view.html', params)
