@@ -487,39 +487,53 @@ def update(request):
         body_temperature = request.POST.get('body_temperature')
         sleep_hours = request.POST.get('sleep_hours')
         stress_level = request.POST.get('stress_level')
-
+        flag = False
         # Updating fields if provided
         if name:
+            flag = True
             patient.name = name
         if age:
+            flag = True
             patient.age = age
         if gender:
+            flag = True
             patient.gender = gender
         if height:
+            flag = True
             patient.height = height
         if weight:
+            flag = True
             patient.weight = weight
         if blood_type:
+            flag = True
             patient.blood_type = blood_type
         if blood_pressure:
+            flag = True
             patient.blood_pressure = blood_pressure
         if oxygen_level:
+            flag = True
             patient.oxygen_level = oxygen_level
         if blood_sugar:
+            flag = True
             patient.blood_sugar = blood_sugar
         if heart_rate:
+            flag = True
             patient.heart_rate = heart_rate
         if cholesterol:
+            flag = True
             patient.cholesterol = cholesterol
         if body_temperature:
+            flag = True
             patient.body_temperature = body_temperature
         if sleep_hours:
+            flag = True
             patient.sleep_hours = sleep_hours
         if stress_level:
+            flag = True
             patient.stress_level = stress_level
 
-
-        patient.save()
+        if flag:
+            patient.save()
 
         return redirect('manager_view')
 
