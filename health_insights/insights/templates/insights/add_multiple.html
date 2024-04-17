@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Add Multiple Patient Records</title>
@@ -8,11 +9,67 @@
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-primary">
+<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
         <a href="{% url 'manager_view' %}" class="navbar-brand">Manager View</a>
     </div>
 </nav>
+
+<style>
+                .colorchange{
+          background-color: #343a40 !important;
+          color: white;
+        }
+
+        .colorchange:hover{
+          color: white;
+        }
+
+
+        .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #343a40;
+        color: #ccc;
+        padding: 20px 0;
+    }
+
+    .footer h5 {
+        font-size: 18px;
+        color: #ccc;
+        margin-bottom: 20px;
+    }
+
+    .footer p {
+        font-size: 14px;
+        color: #ccc;
+        margin-bottom: 10px;
+    }
+
+    .footer .list-unstyled a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer .list-unstyled a:hover {
+        color: #fff;
+    }
+
+    .footer .lead-sm {
+        font-size: 14px;
+        color: #ccc;
+        margin-bottom: 10px;
+    }
+
+    .footer .container {
+        background-color: transparent;
+        margin-bottom: 15px;
+        padding: 0;
+    }
+</style>
 
 <div class="container mt-5">
     <div class="row">
@@ -27,7 +84,7 @@
                             <input type="file" name="file" class="form-control" id="fileUpload" accept=".json" >
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg">Upload</button>
+                            <button type="submit" class="btn btn-custom mt-4 w-100 colorchange">Upload</button>
                         </div>
                     </form>
                 </div>
@@ -35,6 +92,32 @@
         </div>
     </div>
 </div>
+
+
+<footer class="footer text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Contact Information</h5>
+                <p class="lead-sm"><i class="fas fa-user me-2"></i> <span>Name: HealthManager</span></p>
+                <p class="lead-sm"><i class="fas fa-envelope me-2"></i> <span>Email:
+                        HealthManager@gmail.com</span></p>
+            </div>
+            <div class="col-md-4">
+                <h5>Useful Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#"><i class="fas fa-lock me-2"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-book me-2"></i> Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5>Copyright Information</h5>
+                <p class="lead-sm"><i class="fas fa-globe me-2"></i> <span>&copy; 2024 HealthManagerCo.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+  </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

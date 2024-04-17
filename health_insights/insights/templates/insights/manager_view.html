@@ -212,7 +212,68 @@
     }
 
 
+    .footer {
+            width: 100%;
+            background-color: #343a40;
+            color: #ccc;
+            padding: 20px 0;
+        }
+
+        .footer h5 {
+            font-size: 18px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .footer p {
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .footer .list-unstyled a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer .list-unstyled a:hover {
+            color: #fff;
+        }
+
+        .footer .lead-sm {
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .footer .container {
+            background-color: transparent;
+            margin-bottom: 15px;
+            padding: 0;
+        }
+
+        .home-button {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            margin-right: 20px;
+        }
+
+        .colorchange{
+          background-color: #343a40 !important;
+          color: white;
+        }
+
+        .colorchange:hover{
+          color: white;
+        }
+
+
+
   </style>
+
+
 
 <style>
         body {
@@ -270,6 +331,10 @@
 
         <div class="d-flex justify-content-center flex-grow-1">
             <h3 class="text-center text-white">Manager View</h3>  <!-- Added text-white here -->
+        </div>
+
+        <div class="header">
+          <a href="/" class="home-button"><i class="fas fa-home"></i> Home</a>
         </div>
     </div>
 </nav>
@@ -340,36 +405,36 @@
       <div class="col-lg-3 col-md-6">
           <a href="{% url 'add' %}" class="text-decoration-none">
               <div class="feature-container text-center p-4">
-                  <i class="fas fa-user-plus feature-icon"></i>
-                  <div class="feature-text">Add User</div>
-                  <div class="btn btn-custom mt-4 w-100">Add User</div>
+                  <i class="fas fa-user-plus feature-icon" style="color: #343a40;"></i>
+                  <div class="feature-text">Add User</div> 
+                  <div class="btn btn-custom mt-4 w-100 colorchange">Add User</div>
               </div>
           </a>
       </div>
       <div class="col-lg-3 col-md-6">
           <a href="{% url 'update' %}" class="text-decoration-none">
               <div class="feature-container text-center p-4">
-                  <i class="fas fa-user-edit feature-icon"></i>
+                  <i class="fas fa-user-edit feature-icon" style="color: #343a40;"></i>
                   <div class="feature-text">Update User</div>
-                  <div class="btn btn-custom mt-4 w-100">Update User</div>
+                  <div class="btn btn-custom mt-4 w-100 colorchange">Update User</div>
               </div>
           </a>
       </div>
       <div class="col-lg-3 col-md-6">
           <a href="{% url 'delete' %}" class="text-decoration-none">
               <div class="feature-container text-center p-4">
-                  <i class="fas fa-user-times feature-icon"></i>
+                  <i class="fas fa-user-times feature-icon" style="color: #343a40;"></i>
                   <div class="feature-text">Delete User</div>
-                  <div class="btn btn-custom mt-4 w-100">Delete User</div>
+                  <div class="btn btn-custom mt-4 w-100 colorchange">Delete User</div>
               </div>
           </a>
       </div>
       <div class="col-lg-3 col-md-6">
           <a href="#" id="statsbutton" class="text-decoration-none">
               <div class="feature-container text-center p-4">
-                  <i class="fas fa-chart-bar feature-icon"></i>
+                  <i class="fas fa-chart-bar feature-icon"style="color: #343a40;"></i>
                   <div class="feature-text">See Statistics</div>
-                  <div class="btn btn-custom mt-4 w-100">See Statistics</div>
+                  <div class="btn btn-custom mt-4 w-100 colorchange">See Statistics</div>
               </div>
           </a>
       </div>
@@ -511,7 +576,7 @@
 
                 <!-- Submit Button -->
                 <div class="d-grid gap-2 mt-4">
-                    <button type="submit" class="btn btn-primary">Create Graph</button>
+                    <button type="submit" class="btn btn-primary colorchange">Create Graph</button>
                 </div>
             </form>
         </div>
@@ -644,5 +709,32 @@ document.addEventListener('DOMContentLoaded', function () {
     div.style.display = div.style.display === 'none' ? 'block' : 'none';
   });
 </script>
+
+
+
+<footer class="footer text-center">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-4">
+              <h5>Contact Information</h5>
+              <p class="lead-sm"><i class="fas fa-user me-2"></i> <span>Name: HealthManager</span></p>
+              <p class="lead-sm"><i class="fas fa-envelope me-2"></i> <span>Email:
+                      HealthManager@gmail.com</span></p>
+          </div>
+          <div class="col-md-4">
+              <h5>Useful Links</h5>
+              <ul class="list-unstyled">
+                  <li><a href="#"><i class="fas fa-lock me-2"></i> Privacy Policy</a></li>
+                  <li><a href="#"><i class="fas fa-book me-2"></i> Terms of Service</a></li>
+              </ul>
+          </div>
+          <div class="col-md-4">
+              <h5>Copyright Information</h5>
+              <p class="lead-sm"><i class="fas fa-globe me-2"></i> <span>&copy; 2024 HealthManagerCo.</span>
+              </p>
+          </div>
+      </div>
+  </div>
+</footer>
 
 </html>
