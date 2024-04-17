@@ -655,14 +655,14 @@ document.addEventListener('DOMContentLoaded', function () {
           'Obese Class III'
         ],
         datasets: [{
-          data: [/* Replace with your data */ {{underweight_count}}, {{idealweight_count}}, {{overweight_count}}, {{obese_class1_count}}, {{obese_class2_count}}, {{obese_class3_count}}],
+          data: [ {{underweight_count}}, {{idealweight_count}}, {{overweight_count}}, {{obese_class1_count}}, {{obese_class2_count}}, {{obese_class3_count}}],
           backgroundColor: [
             '#f8c291',
             '#6a89cc',
             '#82ccdd',
             '#f6b93b',
             '#e55039',
-            '#4a69bd'
+            '#4a69ff'
           ],
           hoverBackgroundColor: [
             '#f6d365',
@@ -684,6 +684,19 @@ document.addEventListener('DOMContentLoaded', function () {
         tooltips: {
           enabled: true
         },
+        plugins: {
+                datalabels: {
+                    color: '#000',
+                    textAlign: 'center',
+                    font: {
+                        weight: 'bold',
+                        size: 20
+                    },
+                    formatter: (value, ctx) => {
+                        return value;
+                    }
+                }
+                },
         animation: {
           animateScale: true,
           animateRotate: true

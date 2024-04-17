@@ -14,7 +14,7 @@ def run():
     """
     Patient.objects.using('db1').delete()
     Patient.objects.using('db2').delete()
-    with open("dataset.json", 'r') as file:
+    with open("dataset2.json", 'r') as file:
         data = json.load(file)['Sheet1'] 
 
         for item in data[:20000]:
