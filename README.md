@@ -45,7 +45,7 @@ python3 manage.py runserver
 ### health_insights
 - **Urls.py**: Contains the URLs of the pages created for the application.
 - **Settings.py**: Default configuration file for the Django project, handling app and database configurations.
-- - **init.py**: Makes Python treat the directory as containing packages.
+- **init.py**: Makes Python treat the directory as containing packages.
 
 ### insights
 - **Templates/insights**: Directory containing HTML templates.
