@@ -58,7 +58,7 @@ python3 manage.py runserver
 - **tests.py**: Contains test classes and functions.
 - **views.py**: Handles request logic and data presentation.
 
-- ### Parser
+### Parser
 - **parser2.py**: Used to parse and load the initial data into the web application.
 
 
