@@ -41,20 +41,20 @@ python3 manage.py runserver
 
 
 # File Structure
-health_insights:
 
-Urls.py: This file contains the URLs of the pages we've created.
-Settings.py: It's the default configuration file for the Django project, where we configure our apps and databases.
+### health_insights
+- **Urls.py**: Contains the URLs of the pages created for the application.
+- **Settings.py**: Default configuration file for the Django project, handling app and database configurations.
 
-insights:
+### insights
+- **Templates/insights**: Directory containing HTML templates.
+- **Models.py**: Defines database models.
+- **init.py**: Makes Python treat the directory as containing packages.
+- **admin.py**: Registers models for Django's admin interface.
+- **apps.py**: Contains application-specific configuration settings.
+- **forms.py**: Defines forms for the application.
+- **router.py**: Manages database routing for multiple databases.
+- **tests.py**: Contains test classes and functions.
+- **views.py**: Handles request logic and data presentation.
 
-Templates/insights: This directory houses all our HTML templates.
-Models.py: Here, we define our database models.
-init.py: This file makes Python treat the directories as containing packages; it can be empty.
-admin.py: Used to register models for Django's admin interface.
-apps.py: Contains settings for application configuration.
-forms.py: Defines forms for the application, extending Django's form functionality for templates.
-router.py: Manages database routing for multiple databases.
-tests.py: Contains test classes and functions to run against the application.
-views.py: Contains the logic and control flow for handling requests, defining functions and classes to manage data presentation.
-```
+
