@@ -36,6 +36,7 @@ python3 manage.py runscript parser2
 
 ```bash
 python3 manage.py runserver
+```
 
 
 
